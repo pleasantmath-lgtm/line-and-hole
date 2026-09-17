@@ -86,8 +86,9 @@ const ruleSections = {
     field: {
         title: "자기력선",
         items: [
-            "퍼즐판 위의 자기력선은 칸과 칸 사이에 걸친 N극에서 S극 방향 화살표예요.",
+            "퍼즐판 위의 자기력선은 서로 다른 조각의 N극에서 S극으로 향하는 화살표예요.",
             "화살표가 시작되는 칸에는 N극이, 화살표가 향하는 바로 옆 칸에는 S극이 있어야 해요.",
+            "같은 조각 안쪽의 자기력선은 이 단계에서 표시하지 않아요.",
             "붙어 있는 모든 N-S 사이에 자기력선이 있어야 하는 것은 아니에요."
         ]
     }
@@ -1172,14 +1173,14 @@ const stages = [
             { x: 3, y: 5 }
         ],
         fieldLines: [
-            { x: 0, y: 0, dir: "S" },
+            { x: 0, y: 2, dir: "S" },
+            { x: 4, y: 2, dir: "N" },
+            { x: 5, y: 5, dir: "W" },
+            { x: 2, y: 2, dir: "E" },
             { x: 4, y: 0, dir: "E" },
-            { x: 3, y: 1, dir: "N" },
-            { x: 3, y: 1, dir: "W" },
             { x: 5, y: 1, dir: "W" },
-            { x: 4, y: 2, dir: "W" },
-            { x: 2, y: 4, dir: "E" },
-            { x: 5, y: 5, dir: "N" }
+            { x: 1, y: 5, dir: "E" },
+            { x: 3, y: 1, dir: "S" }
         ],
         endpoints: {
             start: { x: 0, y: 2, dir: "W", label: "S" },
@@ -1187,8 +1188,8 @@ const stages = [
         },
         pieces: [
             {
-                id: "field-arch",
-                name: "빨간 자력 문",
+                id: "field-small-1",
+                name: "자력 조각 1",
                 color: "#e15f41",
                 cells: [
                     { x: 0, y: 0, magnet: "N" },
@@ -1198,91 +1199,105 @@ const stages = [
                 ]
             },
             {
-                id: "field-roof",
-                name: "파란 자력 지붕",
+                id: "field-small-2",
+                name: "자력 조각 2",
                 color: "#2f80ed",
                 cells: [
                     { x: 0, y: 0, hole: true },
                     { x: 1, y: 0 },
-                    { x: 2, y: 0, magnet: "S" },
-                    { x: 1, y: 1, magnet: "S" }
+                    { x: 2, y: 0, magnet: "S" }
                 ]
             },
             {
-                id: "field-corner",
-                name: "초록 자력 꺾임",
+                id: "field-small-3",
+                name: "자력 조각 3",
                 color: "#27ae60",
                 cells: [
-                    { x: 1, y: 0, magnet: "N" },
-                    { x: 2, y: 0, magnet: "S" },
-                    { x: 0, y: 1, magnet: "N" },
-                    { x: 1, y: 1, magnet: "S" }
+                    { x: 2, y: 0, magnet: "N" },
+                    { x: 0, y: 1, magnet: "S" },
+                    { x: 1, y: 1, magnet: "N" },
+                    { x: 2, y: 1, magnet: "S" }
                 ]
             },
             {
-                id: "field-hook",
-                name: "노란 자력 갈고리",
+                id: "field-small-4",
+                name: "자력 조각 4",
                 color: "#f2c94c",
                 cells: [
-                    { x: 1, y: 0, magnet: "N" },
-                    { x: 0, y: 1, magnet: "N", paths: ["W", "E"] },
-                    { x: 1, y: 1, hole: true, paths: ["W", "S"] },
-                    { x: 1, y: 2, paths: ["N", "W"] }
+                    { x: 1, y: 0, magnet: "S" },
+                    { x: 1, y: 1, magnet: "N" },
+                    { x: 0, y: 2, magnet: "N", paths: ["W", "E"] },
+                    { x: 1, y: 2, hole: true, paths: ["W", "S"] }
                 ]
             },
             {
-                id: "field-bridge",
-                name: "보라 자력 다리",
+                id: "field-small-5",
+                name: "자력 조각 5",
                 color: "#9b51e0",
                 cells: [
                     { x: 0, y: 0, paths: ["W", "E"] },
                     { x: 1, y: 0, magnet: "N", paths: ["W", "E"] },
-                    { x: 2, y: 0, magnet: "S", paths: ["W", "E"] },
                     { x: 1, y: 1, hole: true }
                 ]
             },
             {
-                id: "field-tall",
-                name: "청록 자력 세로",
+                id: "field-small-6",
+                name: "자력 조각 6",
                 color: "#00a6a6",
                 cells: [
-                    { x: 0, y: 0, magnet: "S" },
-                    { x: 0, y: 1 },
-                    { x: 0, y: 2 },
-                    { x: 1, y: 2, magnet: "N" }
+                    { x: 0, y: 0, magnet: "S", paths: ["W", "E"] },
+                    { x: 0, y: 1, paths: ["E", "S"] },
+                    { x: 1, y: 1, magnet: "S", paths: ["E", "W"] }
                 ]
             },
             {
-                id: "field-step",
-                name: "분홍 자력 계단",
+                id: "field-small-7",
+                name: "자력 조각 7",
                 color: "#eb5757",
                 cells: [
-                    { x: 0, y: 0, magnet: "N" },
-                    { x: 0, y: 1 },
-                    { x: 1, y: 1, magnet: "N" },
-                    { x: 1, y: 2, magnet: "S" }
+                    { x: 0, y: 0, magnet: "S" },
+                    { x: 1, y: 0, magnet: "N" },
+                    { x: 1, y: 1 }
                 ]
             },
             {
-                id: "field-column",
-                name: "남색 자력 기둥",
+                id: "field-small-8",
+                name: "자력 조각 8",
                 color: "#3454d1",
                 cells: [
-                    { x: 0, y: 0, paths: ["E", "S"] },
-                    { x: 0, y: 1, magnet: "S", paths: ["N", "S"] },
-                    { x: 0, y: 2, hole: true, paths: ["N", "E"] },
-                    { x: 1, y: 2, magnet: "S", paths: ["W", "E"] }
+                    { x: 0, y: 0, paths: ["N", "W"] },
+                    { x: 0, y: 1, magnet: "S" },
+                    { x: 0, y: 2, magnet: "N", paths: ["W", "E"] }
                 ]
             },
             {
-                id: "field-square",
-                name: "노란 자력 네모",
+                id: "field-small-9",
+                name: "자력 조각 9",
                 color: "#f2994a",
                 cells: [
-                    { x: 0, y: 0, magnet: "S", paths: ["E", "W"] },
+                    { x: 0, y: 0 },
                     { x: 0, y: 1 },
-                    { x: 1, y: 1, magnet: "S" },
-                    { x: 1, y: 2, magnet: "N", paths: ["W", "E"] }
+                    { x: 1, y: 1, magnet: "N" }
+                ]
+            },
+            {
+                id: "field-small-10",
+                name: "자력 조각 10",
+                color: "#7c3aed",
+                cells: [
+                    { x: 0, y: 0, magnet: "N" },
+                    { x: 1, y: 0, magnet: "S", paths: ["N", "S"] },
+                    { x: 0, y: 1, magnet: "S" }
+                ]
+            },
+            {
+                id: "field-small-11",
+                name: "자력 조각 11",
+                color: "#f2994a",
+                cells: [
+                    { x: 1, y: 0 },
+                    { x: 0, y: 1, hole: true, paths: ["N", "E"] },
+                    { x: 1, y: 1, magnet: "S", paths: ["W", "E"] }
                 ]
             }
         ]
@@ -2029,7 +2044,7 @@ function getProgressMessage() {
 
     if (!solved) {
         return hasFieldRules(stage)
-            ? "판은 다 찼지만, 길이나 자기력선 방향이 아직 맞지 않아요."
+            ? "판은 다 찼지만, 길이나 자기력선의 극성 및 조각 경계가 아직 맞지 않아요."
             : "판은 다 찼지만, 아직 S에서 G까지 하나의 길로 이어지지 않았어요.";
     }
 
@@ -2283,7 +2298,7 @@ function hasFieldPlacementConflict(stage, cells, boardCells) {
             return true;
         }
 
-        return targetCell && targetCell.magnet !== "S";
+        return targetCell && (targetCell.magnet !== "S" || (sourceCell && sourceCell.pieceId === targetCell.pieceId));
     });
 }
 
@@ -2371,7 +2386,7 @@ function isFieldSolved(boardCells) {
         const target = getFieldTarget(line);
         const targetCell = boardCells[target.y][target.x];
 
-        if (!sourceCell || sourceCell.magnet !== "N" || !targetCell || targetCell.magnet !== "S") {
+        if (!sourceCell || sourceCell.magnet !== "N" || !targetCell || targetCell.magnet !== "S" || sourceCell.pieceId === targetCell.pieceId) {
             return false;
         }
     }
