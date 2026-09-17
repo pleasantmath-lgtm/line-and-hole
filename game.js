@@ -1985,7 +1985,7 @@ function canPlaceCellsForPiece(cells, pieceId) {
         const colorBlocksPeg = hasColorPegRules(stage) && peg?.colorKey && !isPieceColorMatch(pieceId, peg.colorKey);
 
         return !overlapsPiece && !blocksPeg && !colorBlocksPeg;
-    }) && !hasPlacedMagnetConflict(stage, cells, pieceId) && !hasPlacedFieldConflict(stage, cells, pieceId);
+    }) && !hasPlacedMagnetConflict(stage, cells, pieceId);
 }
 
 function hasPlacedMagnetConflict(stage, cells, pieceId) {
@@ -2016,37 +2016,6 @@ function hasPlacedMagnetConflict(stage, cells, pieceId) {
             return neighborCell.magnet === cell.magnet;
         });
     });
-}
-
-function hasPlacedFieldConflict(stage, cells, pieceId) {
-    if (!hasFieldRules(stage)) {
-        return false;
-    }
-
-    const placementCellsByPosition = new Map(cells.map((cell) => [`${cell.x},${cell.y}`, cell]));
-
-    return getFieldLines(stage).some((line) => {
-        const sourceCell = getFieldCandidateCell(line.x, line.y, placementCellsByPosition, pieceId);
-        const target = getFieldTarget(line);
-        const targetCell = getFieldCandidateCell(target.x, target.y, placementCellsByPosition, pieceId);
-
-        if (sourceCell && sourceCell.magnet !== "N") {
-            return true;
-        }
-
-        return targetCell && targetCell.magnet !== "S";
-    });
-}
-
-function getFieldCandidateCell(x, y, placementCellsByPosition, pieceId) {
-    const placementCell = placementCellsByPosition.get(`${x},${y}`);
-
-    if (placementCell) {
-        return placementCell;
-    }
-
-    const placedCell = getPlacedCell(x, y);
-    return placedCell?.pieceId === pieceId ? null : placedCell;
 }
 
 function getProgressMessage() {
