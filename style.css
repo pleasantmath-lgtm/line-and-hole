@@ -596,6 +596,10 @@ body {
     right: 20px;
     bottom: 20px;
     z-index: 30;
+    width: 96px;
+}
+
+.help-card:has(.help-content:not([hidden])) {
     width: min(320px, calc(100vw - 40px));
 }
 
@@ -785,7 +789,8 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .help-card {
+    .help-card,
+    .help-card:has(.help-content:not([hidden])) {
         position: static;
         width: auto;
         margin: 0 20px 20px;
