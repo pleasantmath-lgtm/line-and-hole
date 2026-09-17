@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window Path Prototype</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app">
+        <header class="app-header">
+            <p id="stageLabel" class="stage-label">1-1단계</p>
+            <h1>Window Path</h1>
+            <p id="stageDescription"></p>
+        </header>
+
+        <section class="game-area" aria-label="퍼즐 게임 영역">
+            <div id="boardScene" class="board-scene">
+                <div id="board" class="board" aria-label="퍼즐판"></div>
+            </div>
+
+            <aside class="side-panel" aria-label="조각 보관함">
+                <div class="level-nav" aria-label="레벨 이동">
+                    <button id="prevStageButton" class="arrow-button" type="button" aria-label="이전 레벨">←</button>
+                    <div class="level-picker">
+                        <button id="currentStageName" class="current-stage" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="stageMenu">1-1</button>
+                        <div id="stageMenu" class="stage-menu" role="menu" hidden></div>
+                    </div>
+                    <button id="nextStageButton" class="arrow-button" type="button" aria-label="다음 레벨">→</button>
+                </div>
+
+                <h2>조각</h2>
+                <div id="pieceTray" class="piece-tray"></div>
+
+                <button id="solveButton" class="solver-button" type="button">해답 검사</button>
+                <p id="solverReport" class="solver-report">아직 검사하지 않았어요.</p>
+                <p id="message" class="message">조각을 보드 위로 끌어보세요.</p>
+            </aside>
+        </section>
+    </main>
+
+    <aside class="help-card" aria-label="도움말">
+        <button id="helpToggle" class="help-toggle" type="button" aria-expanded="false" aria-controls="helpContent">도움말</button>
+        <div id="helpContent" class="help-content" hidden>
+            <div class="size-controls" aria-label="크기 조절">
+                <label>
+                    <span>퍼즐판</span>
+                    <input id="boardSizeSlider" type="range" min="44" max="76" value="64">
+                    <output id="boardSizeValue" for="boardSizeSlider">64</output>
+                </label>
+                <label>
+                    <span>조각</span>
+                    <input id="traySizeSlider" type="range" min="28" max="52" value="40">
+                    <output id="traySizeValue" for="traySizeSlider">40</output>
+                </label>
+            </div>
+
+            <section class="help-section" aria-label="룰 설명">
+                <button id="rulesToggle" class="secondary-toggle" type="button" aria-expanded="false" aria-controls="rulesContent">룰 보기</button>
+                <div id="rulesContent" class="rules-content" hidden></div>
+            </section>
+
+            <section class="help-section" aria-labelledby="controlHelp">
+                <h2 id="controlHelp">조작</h2>
+                <dl>
+                    <div>
+                        <dt>드래그</dt>
+                        <dd>조각 놓기, 다시 집기</dd>
+                    </div>
+                    <div>
+                        <dt>R</dt>
+                        <dd>현재 단계 초기화</dd>
+                    </div>
+                </dl>
+            </section>
+
+            <section class="help-section" aria-labelledby="counterClockwiseHelp">
+                <h2 id="counterClockwiseHelp">반시계 회전</h2>
+                <dl>
+                    <div>
+                        <dt><button class="key-bind-button" type="button" data-key-action="counterclockwise" aria-label="반시계 회전 키 변경"><span id="counterClockwiseKeyLabel">A</span></button></dt>
+                        <dd>키보드</dd>
+                    </div>
+                    <div>
+                        <dt>좌클릭</dt>
+                        <dd>조각 클릭</dd>
+                    </div>
+                </dl>
+            </section>
+
+            <section class="help-section" aria-labelledby="clockwiseHelp">
+                <h2 id="clockwiseHelp">시계 회전</h2>
+                <dl>
+                    <div>
+                        <dt><button class="key-bind-button" type="button" data-key-action="clockwise" aria-label="시계 회전 키 변경"><span id="clockwiseKeyLabel">D</span></button></dt>
+                        <dd>키보드</dd>
+                    </div>
+                    <div>
+                        <dt>우클릭</dt>
+                        <dd>조각 클릭</dd>
+                    </div>
+                </dl>
+            </section>
+        </div>
+    </aside>
+
+    <div id="ruleOverlay" class="rule-overlay" hidden>
+        <section class="rule-dialog" role="dialog" aria-modal="true" aria-labelledby="ruleDialogTitle">
+            <button id="ruleDialogClose" class="rule-close" type="button" aria-label="룰 안내 닫기">x</button>
+            <p id="ruleDialogEyebrow" class="rule-eyebrow">룰 안내</p>
+            <h2 id="ruleDialogTitle">룰을 확인해요</h2>
+            <div id="ruleDialogBody" class="rules-content"></div>
+        </section>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
