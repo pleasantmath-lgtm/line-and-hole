@@ -1301,6 +1301,185 @@ const stages = [
                 ]
             }
         ]
+    },
+    {
+        id: "magnetic-field-expansion",
+        shortName: "3-3",
+        label: "3-3단계: 자기력선 확장",
+        description: "7x7 판에서 peg, 경로, 자석 극성, 자기력선을 함께 맞춰요.",
+        kind: "field",
+        ruleIds: ["peg", "path", "magnet", "field"],
+        boardSize: 7,
+        pegs: [
+            { x: 1, y: 0 },
+            { x: 6, y: 2 },
+            { x: 3, y: 2 },
+            { x: 3, y: 6 }
+        ],
+        fieldLines: [
+            { x: 1, y: 2, dir: "E" },
+            { x: 6, y: 0, dir: "S" },
+            { x: 0, y: 1, dir: "S" },
+            { x: 4, y: 3, dir: "S" },
+            { x: 2, y: 4, dir: "W" },
+            { x: 6, y: 5, dir: "W" },
+            { x: 1, y: 6, dir: "E" },
+            { x: 0, y: 4, dir: "E" },
+            { x: 5, y: 6, dir: "W" }
+        ],
+        endpoints: {
+            start: { x: 2, y: 0, dir: "N", label: "S" },
+            end: { x: 5, y: 6, dir: "S", label: "G" }
+        },
+        pieces: [
+            {
+                id: "field-advanced-1",
+                name: "자력 조각 1",
+                color: "#e15f41",
+                cells: [
+                    { x: 0, y: 0, magnet: "S" },
+                    { x: 0, y: 1, magnet: "N" },
+                    { x: 1, y: 1, paths: ["E", "S"] }
+                ]
+            },
+            {
+                id: "field-advanced-2",
+                name: "자력 조각 2",
+                color: "#2f80ed",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 1, y: 0, paths: ["N", "S"] },
+                    { x: 2, y: 0, magnet: "S" }
+                ]
+            },
+            {
+                id: "field-advanced-3",
+                name: "자력 조각 3",
+                color: "#27ae60",
+                cells: [
+                    { x: 1, y: 0, hole: true },
+                    { x: 1, y: 1, paths: ["W", "E"] },
+                    { x: 0, y: 2, hole: true, paths: ["W", "N"] },
+                    { x: 1, y: 2, magnet: "S" }
+                ]
+            },
+            {
+                id: "field-advanced-4",
+                name: "자력 조각 4",
+                color: "#f2c94c",
+                cells: [
+                    { x: 0, y: 0, magnet: "S" },
+                    { x: 1, y: 0, magnet: "N" },
+                    { x: 0, y: 1, magnet: "N", paths: ["W", "S"] }
+                ]
+            },
+            {
+                id: "field-advanced-5",
+                name: "자력 조각 5",
+                color: "#9b51e0",
+                cells: [
+                    { x: 0, y: 0, magnet: "N", paths: ["N", "W"] },
+                    { x: 1, y: 0, paths: ["S", "E"] },
+                    { x: 0, y: 1, magnet: "S", paths: ["W", "E"] }
+                ]
+            },
+            {
+                id: "field-advanced-6",
+                name: "자력 조각 6",
+                color: "#00a6a6",
+                cells: [
+                    { x: 1, y: 0, magnet: "S" },
+                    { x: 0, y: 1, paths: ["N", "S"] },
+                    { x: 1, y: 1, hole: true },
+                    { x: 1, y: 2, magnet: "N" }
+                ]
+            },
+            {
+                id: "field-advanced-7",
+                name: "자력 조각 7",
+                color: "#eb5757",
+                cells: [
+                    { x: 0, y: 0, magnet: "S" },
+                    { x: 1, y: 0, magnet: "N", paths: ["N", "E"] },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1 }
+                ]
+            },
+            {
+                id: "field-advanced-8",
+                name: "자력 조각 8",
+                color: "#3454d1",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 0, y: 1, magnet: "N" },
+                    { x: 1, y: 1, paths: ["N", "E"] },
+                    { x: 2, y: 1, magnet: "S", paths: ["W", "S"] }
+                ]
+            },
+            {
+                id: "field-advanced-9",
+                name: "자력 조각 9",
+                color: "#f2994a",
+                cells: [
+                    { x: 0, y: 0, paths: ["E", "S"] },
+                    { x: 1, y: 0, magnet: "N", paths: ["E", "W"] },
+                    { x: 2, y: 0, magnet: "S", paths: ["N", "W"] },
+                    { x: 2, y: 1, hole: true }
+                ]
+            },
+            {
+                id: "field-advanced-10",
+                name: "자력 조각 10",
+                color: "#7c3aed",
+                cells: [
+                    { x: 0, y: 0, magnet: "N" },
+                    { x: 0, y: 1, magnet: "S" },
+                    { x: 0, y: 2 }
+                ]
+            },
+            {
+                id: "field-advanced-11",
+                name: "자력 조각 11",
+                color: "#e15f41",
+                cells: [
+                    { x: 0, y: 0, magnet: "S" },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1 },
+                    { x: 0, y: 2, magnet: "N" }
+                ]
+            },
+            {
+                id: "field-advanced-12",
+                name: "자력 조각 12",
+                color: "#2f80ed",
+                cells: [
+                    { x: 1, y: 0 },
+                    { x: 1, y: 1, magnet: "N" },
+                    { x: 0, y: 2, magnet: "N", paths: ["W", "S"] },
+                    { x: 1, y: 2 }
+                ]
+            },
+            {
+                id: "field-advanced-13",
+                name: "자력 조각 13",
+                color: "#27ae60",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 1, y: 0, hole: true, paths: ["N", "S"] },
+                    { x: 2, y: 0, magnet: "S" }
+                ]
+            },
+            {
+                id: "field-advanced-14",
+                name: "자력 조각 14",
+                color: "#f2c94c",
+                cells: [
+                    { x: 0, y: 0, magnet: "S" },
+                    { x: 1, y: 0, hole: true },
+                    { x: 2, y: 0, magnet: "S", paths: ["N", "E"] }
+                ]
+            }
+        ]
     }
 ];
 
@@ -2126,7 +2305,7 @@ function countSolutions() {
             piece,
             variants: variantsByPiece[index]
         }))
-        .sort((a, b) => a.variants.length - b.variants.length);
+        .sort((a, b) => a.variants.length - b.variants.length || getPieceClueScore(b.piece) - getPieceClueScore(a.piece));
     const solutions = [];
 
     searchSolutions(orderedPieces, boardCells, 0, solutions);
@@ -2135,6 +2314,10 @@ function countSolutions() {
         count: solutions.length,
         solutions
     };
+}
+
+function getPieceClueScore(piece) {
+    return piece.cells.reduce((score, cell) => score + cell.paths.length * 4 + (cell.hole ? 3 : 0) + (cell.magnet ? 1 : 0), 0);
 }
 
 function searchSolutions(orderedPieces, boardCells, pieceIndex, solutions) {
