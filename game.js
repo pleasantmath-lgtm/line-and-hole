@@ -35,8 +35,8 @@ const defaultKeyBindings = {
     counterclockwise: "a",
     clockwise: "d"
 };
-let trayCellSize = 40;
-let boardCellSize = 64;
+let trayCellSize = 36;
+let boardCellSize = 58;
 let keyBindings = { ...defaultKeyBindings };
 let pendingKeyBindingAction = null;
 let shownRuleIntroductionKeys = new Set();
@@ -1480,6 +1480,232 @@ const stages = [
                 ]
             }
         ]
+    },
+    {
+        id: "magnetic-boss",
+        shortName: "3-X",
+        label: "3-X단계: 자석 종합",
+        description: "8x8 판에서 색 peg, L/R, 자석, 자기력선을 모두 맞추는 스테이지 3의 보스 퍼즐이에요.",
+        kind: "boss",
+        fixedColors: true,
+        ruleIds: ["peg", "path", "turn", "color", "magnet", "field"],
+        boardSize: 8,
+        pegs: [
+            { x: 0, y: 6, colorKey: "red", color: "#e15f41" },
+            { x: 1, y: 4, colorKey: "red", color: "#e15f41" },
+            { x: 3, y: 5, colorKey: "blue", color: "#2f80ed" },
+            { x: 3, y: 6, colorKey: "blue", color: "#2f80ed" },
+            { x: 4, y: 2, colorKey: "yellow", color: "#f2c94c" },
+            { x: 5, y: 3, colorKey: "yellow", color: "#f2c94c" }
+        ],
+        fieldLines: [
+            { x: 5, y: 7, dir: "W" },
+            { x: 6, y: 4, dir: "W" },
+            { x: 6, y: 2, dir: "E" },
+            { x: 2, y: 6, dir: "N" },
+            { x: 2, y: 2, dir: "W" },
+            { x: 1, y: 5, dir: "E" },
+            { x: 5, y: 5, dir: "S" },
+            { x: 6, y: 6, dir: "S" }
+        ],
+        endpoints: {
+            start: { x: 1, y: 0, dir: "N", label: "S" },
+            end: { x: 6, y: 7, dir: "S", label: "G" }
+        },
+        pieces: [
+            {
+                id: "magnetic-boss-1",
+                name: "빨간 종합 조각 1",
+                color: "#e15f41",
+                colorKey: "red",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 1, y: 0, magnet: "S", paths: ["N", "S"] },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1, paths: ["N", "E"] }
+                ]
+            },
+            {
+                id: "magnetic-boss-2",
+                name: "파란 종합 조각 2",
+                color: "#2f80ed",
+                colorKey: "blue",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 1, y: 0 },
+                    { x: 1, y: 1, magnet: "N", paths: ["W", "S"] },
+                    { x: 2, y: 1 }
+                ]
+            },
+            {
+                id: "magnetic-boss-3",
+                name: "노란 종합 조각 3",
+                color: "#f2c94c",
+                colorKey: "yellow",
+                cells: [
+                    { x: 0, y: 0, magnet: "N" },
+                    { x: 1, y: 0 },
+                    { x: 1, y: 1 },
+                    { x: 2, y: 1, magnet: "S" }
+                ]
+            },
+            {
+                id: "magnetic-boss-4",
+                name: "노란 종합 조각 4",
+                color: "#f2c94c",
+                colorKey: "yellow",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 1, y: 0, magnet: "S" },
+                    { x: 1, y: 1 },
+                    { x: 1, y: 2, magnet: "S" }
+                ]
+            },
+            {
+                id: "magnetic-boss-5",
+                name: "노란 종합 조각 5",
+                color: "#f2c94c",
+                colorKey: "yellow",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["W", "E"] },
+                    { x: 0, y: 1, magnet: "N", paths: ["E", "S"] },
+                    { x: 1, y: 1, magnet: "S", paths: ["N", "W"] },
+                    { x: 0, y: 2, hole: true, turn: "L", paths: ["N", "E"] }
+                ]
+            },
+            {
+                id: "magnetic-boss-6",
+                name: "빨간 종합 조각 6",
+                color: "#e15f41",
+                colorKey: "red",
+                cells: [
+                    { x: 0, y: 0, magnet: "N" },
+                    { x: 1, y: 0, magnet: "S" },
+                    { x: 1, y: 1, magnet: "N" },
+                    { x: 1, y: 2, hole: true }
+                ]
+            },
+            {
+                id: "magnetic-boss-7",
+                name: "노란 종합 조각 7",
+                color: "#f2c94c",
+                colorKey: "yellow",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 1, y: 0, magnet: "S" },
+                    { x: 2, y: 0, magnet: "N" },
+                    { x: 1, y: 1, hole: true, turn: "R", paths: ["W", "S"] }
+                ]
+            },
+            {
+                id: "magnetic-boss-8",
+                name: "파란 종합 조각 8",
+                color: "#2f80ed",
+                colorKey: "blue",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 0, y: 1, magnet: "N" },
+                    { x: 0, y: 2, magnet: "S" },
+                    { x: 1, y: 2, magnet: "N" }
+                ]
+            },
+            {
+                id: "magnetic-boss-9",
+                name: "노란 종합 조각 9",
+                color: "#f2c94c",
+                colorKey: "yellow",
+                cells: [
+                    { x: 1, y: 0, magnet: "N", paths: ["W", "E"] },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1, hole: true, paths: ["E", "S"] },
+                    { x: 0, y: 2, magnet: "S" }
+                ]
+            },
+            {
+                id: "magnetic-boss-10",
+                name: "파란 종합 조각 10",
+                color: "#2f80ed",
+                colorKey: "blue",
+                cells: [
+                    { x: 0, y: 0, magnet: "S", paths: ["W", "E"] },
+                    { x: 0, y: 1, paths: ["E", "W"] },
+                    { x: 1, y: 1, magnet: "S", paths: ["N", "W"] },
+                    { x: 1, y: 2, magnet: "N", paths: ["W", "E"] }
+                ]
+            },
+            {
+                id: "magnetic-boss-11",
+                name: "빨간 종합 조각 11",
+                color: "#e15f41",
+                colorKey: "red",
+                cells: [
+                    { x: 0, y: 0, magnet: "S" },
+                    { x: 1, y: 0 },
+                    { x: 0, y: 1, magnet: "N" },
+                    { x: 0, y: 2, hole: true, turn: "R", paths: ["W", "S"] }
+                ]
+            },
+            {
+                id: "magnetic-boss-12",
+                name: "파란 종합 조각 12",
+                color: "#2f80ed",
+                colorKey: "blue",
+                cells: [
+                    { x: 1, y: 0, hole: true },
+                    { x: 1, y: 1, magnet: "N" },
+                    { x: 0, y: 2, magnet: "N", paths: ["N", "S"] },
+                    { x: 1, y: 2, hole: true }
+                ]
+            },
+            {
+                id: "magnetic-boss-13",
+                name: "파란 종합 조각 13",
+                color: "#2f80ed",
+                colorKey: "blue",
+                cells: [
+                    { x: 2, y: 0, hole: true, turn: "L", paths: ["N", "E"] },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1, magnet: "N" },
+                    { x: 2, y: 1, hole: true }
+                ]
+            },
+            {
+                id: "magnetic-boss-14",
+                name: "빨간 종합 조각 14",
+                color: "#e15f41",
+                colorKey: "red",
+                cells: [
+                    { x: 1, y: 0, magnet: "S", paths: ["W", "E"] },
+                    { x: 1, y: 1 },
+                    { x: 0, y: 2 },
+                    { x: 1, y: 2, magnet: "S" }
+                ]
+            },
+            {
+                id: "magnetic-boss-15",
+                name: "빨간 종합 조각 15",
+                color: "#e15f41",
+                colorKey: "red",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 0, y: 1, magnet: "S" },
+                    { x: 1, y: 1, magnet: "N" },
+                    { x: 2, y: 1, magnet: "S" }
+                ]
+            },
+            {
+                id: "magnetic-boss-16",
+                name: "빨간 종합 조각 16",
+                color: "#e15f41",
+                colorKey: "red",
+                cells: [
+                    { x: 0, y: 0, magnet: "S" },
+                    { x: 0, y: 1, magnet: "N" },
+                    { x: 1, y: 1, magnet: "S", paths: ["N", "S"] },
+                    { x: 2, y: 1, magnet: "N" }
+                ]
+            }
+        ]
     }
 ];
 
@@ -2247,6 +2473,10 @@ function getProgressMessage() {
         return "성공! peg, 길, 자석 극성, 자기력선 방향이 모두 맞았어요.";
     }
 
+    if (stage.kind === "boss") {
+        return "성공! 색 peg, L/R 회전, 자석, 자기력선을 모두 맞췄어요.";
+    }
+
     return hasPathRules(stage)
         ? "성공! 그려진 선들이 모두 S에서 G까지 하나의 경로로 이어졌어요."
         : "성공! 조각들이 4x4 판을 빈틈 없이 채웠어요.";
@@ -2299,16 +2529,39 @@ function countSolutions() {
     const stage = getStage();
     const boardCells = createEmptyBoardCells(stage);
     const puzzlePieces = stage.pieces.map(copyPiece);
-    const variantsByPiece = puzzlePieces.map((piece) => getPlacementVariants(piece));
-    const orderedPieces = puzzlePieces
-        .map((piece, index) => ({
-            piece,
-            variants: variantsByPiece[index]
-        }))
-        .sort((a, b) => a.variants.length - b.variants.length || getPieceClueScore(b.piece) - getPieceClueScore(a.piece));
+    const placementsByCell = Array.from({ length: getBoardCellCount(stage) }, () => []);
     const solutions = [];
+    const usedPieceIds = new Set();
 
-    searchSolutions(orderedPieces, boardCells, 0, solutions);
+    puzzlePieces.forEach((piece) => {
+        getPlacementVariants(piece).forEach((variant) => {
+            for (let y = 0; y < getBoardHeight(stage); y++) {
+                for (let x = 0; x < getBoardWidth(stage); x++) {
+                    const placement = variant.map((cell) => ({
+                        x: x + cell.x,
+                        y: y + cell.y,
+                        hole: cell.hole,
+                        turn: cell.turn,
+                        magnet: cell.magnet,
+                        paths: [...cell.paths],
+                        fields: [...cell.fields],
+                        pieceId: piece.id,
+                        pieceColorKey: piece.colorKey
+                    }));
+
+                    if (placement.some((cell) => !isInsideBoard(cell.x, cell.y))) {
+                        continue;
+                    }
+
+                    placement.forEach((cell) => {
+                        placementsByCell[cell.y * getBoardWidth(stage) + cell.x].push(placement);
+                    });
+                }
+            }
+        });
+    });
+
+    searchSolutionsByMostConstrainedCell(placementsByCell, boardCells, usedPieceIds, solutions);
 
     return {
         count: solutions.length,
@@ -2316,18 +2569,14 @@ function countSolutions() {
     };
 }
 
-function getPieceClueScore(piece) {
-    return piece.cells.reduce((score, cell) => score + cell.paths.length * 4 + (cell.hole ? 3 : 0) + (cell.magnet ? 1 : 0), 0);
-}
-
-function searchSolutions(orderedPieces, boardCells, pieceIndex, solutions) {
+function searchSolutionsByMostConstrainedCell(placementsByCell, boardCells, usedPieceIds, solutions) {
     const stage = getStage();
 
     if (solutions.length >= 2) {
         return;
     }
 
-    if (pieceIndex === orderedPieces.length) {
+    if (usedPieceIds.size === stage.pieces.length) {
         if (isFilled(boardCells) && (!hasPathRules(stage) || isPathSolved(boardCells)) && (!hasFieldRules(stage) || isFieldSolved(boardCells))) {
             solutions.push(true);
         }
@@ -2335,35 +2584,51 @@ function searchSolutions(orderedPieces, boardCells, pieceIndex, solutions) {
         return;
     }
 
-    const { piece, variants } = orderedPieces[pieceIndex];
+    let bestPlacements = null;
 
-    for (const variant of variants) {
-        for (let y = 0; y < getBoardHeight(stage); y++) {
-            for (let x = 0; x < getBoardWidth(stage); x++) {
-                const placement = variant.map((cell) => ({
-                    x: x + cell.x,
-                    y: y + cell.y,
-                    hole: cell.hole,
-                    turn: cell.turn,
-                    magnet: cell.magnet,
-                    paths: [...cell.paths],
-                    fields: [...cell.fields],
-                    pieceId: piece.id,
-                    pieceColorKey: piece.colorKey
-                }));
-
-                if (!canSolverPlace(placement, boardCells)) {
-                    continue;
-                }
-
-                placeOnSolverBoard(placement, boardCells);
-                searchSolutions(orderedPieces, boardCells, pieceIndex + 1, solutions);
-                removeFromSolverBoard(placement, boardCells);
-
-                if (solutions.length >= 2) {
-                    return;
-                }
+    for (let y = 0; y < getBoardHeight(stage); y++) {
+        for (let x = 0; x < getBoardWidth(stage); x++) {
+            if (boardCells[y][x]) {
+                continue;
             }
+
+            const cellIndex = y * getBoardWidth(stage) + x;
+            const candidates = placementsByCell[cellIndex].filter((placement) => {
+                if (usedPieceIds.has(placement[0].pieceId)) {
+                    return false;
+                }
+
+                return canSolverPlace(placement, boardCells);
+            });
+
+            if (candidates.length === 0) {
+                return;
+            }
+
+            if (!bestPlacements || candidates.length < bestPlacements.length) {
+                bestPlacements = candidates;
+            }
+
+            if (bestPlacements.length === 1) {
+                break;
+            }
+        }
+
+        if (bestPlacements?.length === 1) {
+            break;
+        }
+    }
+
+    for (const placement of bestPlacements) {
+        const pieceId = placement[0].pieceId;
+        usedPieceIds.add(pieceId);
+        placeOnSolverBoard(placement, boardCells);
+        searchSolutionsByMostConstrainedCell(placementsByCell, boardCells, usedPieceIds, solutions);
+        removeFromSolverBoard(placement, boardCells);
+        usedPieceIds.delete(pieceId);
+
+        if (solutions.length >= 2) {
+            return;
         }
     }
 }
@@ -2729,23 +2994,23 @@ function createEmptyBoardCells(stage = getStage()) {
 }
 
 function hasPegRules(stage) {
-    return stage.kind === "peg" || stage.kind === "hybrid" || stage.kind === "turn" || stage.kind === "color" || stage.kind === "magnet" || stage.kind === "field";
+    return stage.kind === "peg" || stage.kind === "hybrid" || stage.kind === "turn" || stage.kind === "color" || stage.kind === "magnet" || stage.kind === "field" || stage.kind === "boss";
 }
 
 function hasPathRules(stage) {
-    return stage.kind === "path" || stage.kind === "hybrid" || stage.kind === "turn" || stage.kind === "color" || stage.kind === "magnet" || stage.kind === "field";
+    return stage.kind === "path" || stage.kind === "hybrid" || stage.kind === "turn" || stage.kind === "color" || stage.kind === "magnet" || stage.kind === "field" || stage.kind === "boss";
 }
 
 function hasColorPegRules(stage) {
-    return stage.kind === "color";
+    return stage.kind === "color" || stage.kind === "boss";
 }
 
 function hasMagnetRules(stage) {
-    return stage.kind === "magnet" || stage.kind === "field";
+    return stage.kind === "magnet" || stage.kind === "field" || stage.kind === "boss";
 }
 
 function hasFieldRules(stage) {
-    return stage.kind === "field";
+    return stage.kind === "field" || stage.kind === "boss";
 }
 
 function isPieceColorMatch(pieceId, colorKey) {
@@ -2913,6 +3178,10 @@ function getFallbackRuleIds(stage) {
 
     if (stage.kind === "field") {
         return ["peg", "path", "magnet", "field"];
+    }
+
+    if (stage.kind === "boss") {
+        return ["peg", "path", "turn", "color", "magnet", "field"];
     }
 
     return ["peg", "path"];
