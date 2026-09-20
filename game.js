@@ -104,7 +104,7 @@ const ruleSections = {
         title: "여러 출발점",
         items: [
             "S가 여러 개라면 각 S는 서로 합쳐지지 않는 독립된 경로망을 만들어요.",
-            "4-2에서는 한 S는 하나의 G로, 다른 S는 갈라져 나머지 두 G로 이어져야 해요.",
+            "한 S는 하나의 G로, 다른 S는 단계 설명에 적힌 나머지 G들로 갈라져 이어져야 해요.",
             "어느 경로망에도 속하지 않는 선이나 G가 있으면 완성으로 인정되지 않아요."
         ]
     },
@@ -1937,6 +1937,169 @@ const stages = [
                     { x: 1, y: 0 },
                     { x: 1, y: 1 },
                     { x: 2, y: 1, hole: true }
+                ]
+            }
+        ]
+    },
+    {
+        id: "multipath-expert",
+        shortName: "4-3",
+        label: "4-3단계: 이중 교차로",
+        description: "7x7 판에서 두 경로망을 분리한 채 두 교차로를 지나, 한 S는 G 하나로, 다른 S는 G 세 개로 이어 보세요.",
+        kind: "multipath",
+        ruleIds: ["peg", "multipath", "multistart", "crossing"],
+        boardSize: 7,
+        pegs: [
+            { x: 0, y: 0 },
+            { x: 3, y: 1 },
+            { x: 4, y: 1 },
+            { x: 0, y: 5 },
+            { x: 2, y: 2 }
+        ],
+        endpoints: {
+            starts: [
+                { x: 0, y: 3, dir: "W", label: "S" },
+                { x: 2, y: 0, dir: "N", label: "S" }
+            ],
+            ends: [
+                { x: 4, y: 6, dir: "S", label: "G" },
+                { x: 0, y: 4, dir: "W", label: "G" },
+                { x: 6, y: 5, dir: "E", label: "G" },
+                { x: 5, y: 6, dir: "S", label: "G" }
+            ]
+        },
+        pieces: [
+            {
+                id: "multipath-expert-1",
+                name: "교차 경로 조각 1",
+                color: "#e15f41",
+                cells: [
+                    { x: 1, y: 0 },
+                    { x: 2, y: 0, hole: true },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1 },
+                    { x: 1, y: 2, hole: true, paths: ["E", "W"] }
+                ]
+            },
+            {
+                id: "multipath-expert-2",
+                name: "교차 경로 조각 2",
+                color: "#2f80ed",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 1, y: 0, paths: ["S", "N"] },
+                    { x: 2, y: 0 },
+                    { x: 2, y: 1, hole: true }
+                ]
+            },
+            {
+                id: "multipath-expert-3",
+                name: "교차 경로 조각 3",
+                color: "#27ae60",
+                cells: [
+                    { x: 1, y: 0 },
+                    { x: 2, y: 0 },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1, hole: true }
+                ]
+            },
+            {
+                id: "multipath-expert-4",
+                name: "교차 경로 조각 4",
+                color: "#f2c94c",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 0, y: 1, hole: true },
+                    { x: 0, y: 2, hole: true },
+                    { x: 1, y: 2 }
+                ]
+            },
+            {
+                id: "multipath-expert-5",
+                name: "교차 경로 조각 5",
+                color: "#9b51e0",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["S", "N"] },
+                    { x: 1, y: 0, hole: true },
+                    { x: 0, y: 1, paths: ["N", "S"] },
+                    { x: 0, y: 2, crossing: true, crossingAxis: "horizontal", paths: ["N", "S", "E", "W"] }
+                ]
+            },
+            {
+                id: "multipath-expert-6",
+                name: "교차 경로 조각 6",
+                color: "#00a6a6",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["N", "S"] },
+                    { x: 1, y: 0, hole: true },
+                    { x: 2, y: 0 },
+                    { x: 2, y: 1, paths: ["W", "S"] }
+                ]
+            },
+            {
+                id: "multipath-expert-7",
+                name: "교차 경로 조각 7",
+                color: "#eb5757",
+                cells: [
+                    { x: 1, y: 0, paths: ["W", "E"] },
+                    { x: 2, y: 0, crossing: true, crossingAxis: "horizontal", paths: ["W", "E", "S", "N"] },
+                    { x: 0, y: 1, paths: ["S", "N"] },
+                    { x: 1, y: 1, paths: ["S", "E"] }
+                ]
+            },
+            {
+                id: "multipath-expert-8",
+                name: "교차 경로 조각 8",
+                color: "#3454d1",
+                cells: [
+                    { x: 0, y: 0, paths: ["E", "W"] },
+                    { x: 0, y: 1 },
+                    { x: 0, y: 2, hole: true },
+                    { x: 1, y: 2 }
+                ]
+            },
+            {
+                id: "multipath-expert-9",
+                name: "교차 경로 조각 9",
+                color: "#f2994a",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 1, y: 0, hole: true },
+                    { x: 2, y: 0, hole: true, paths: ["S", "N"] },
+                    { x: 2, y: 1, paths: ["S", "N"] }
+                ]
+            },
+            {
+                id: "multipath-expert-10",
+                name: "교차 경로 조각 10",
+                color: "#6fcf97",
+                cells: [
+                    { x: 1, y: 0, paths: ["N", "W", "E"] },
+                    { x: 0, y: 1, hole: true },
+                    { x: 1, y: 1 },
+                    { x: 0, y: 2 }
+                ]
+            },
+            {
+                id: "multipath-expert-11",
+                name: "교차 경로 조각 11",
+                color: "#bb6bd9",
+                cells: [
+                    { x: 2, y: 0 },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1, paths: ["S", "N", "E"] },
+                    { x: 2, y: 1, paths: ["W", "E"] }
+                ]
+            },
+            {
+                id: "multipath-expert-12",
+                name: "교차 경로 조각 12",
+                color: "#56ccf2",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["S", "N"] },
+                    { x: 1, y: 0 },
+                    { x: 2, y: 0 },
+                    { x: 1, y: 1, paths: ["S", "W"] }
                 ]
             }
         ]
