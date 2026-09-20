@@ -95,9 +95,17 @@ const ruleSections = {
     multipath: {
         title: "다중 경로",
         items: [
-            "하나의 S에서 출발한 길이 갈림길에서 나뉘어 여러 G에 도착해야 해요.",
+            "S에서 출발한 길이 갈림길에서 나뉘어 여러 G에 도착할 수 있어요.",
             "각 G는 서로 다른 가지의 끝에 연결되어야 해요.",
             "그려진 모든 선은 S에서 이어지는 경로에 포함되어야 하며, 남는 선이나 끊긴 선은 없어야 해요."
+        ]
+    },
+    multistart: {
+        title: "여러 출발점",
+        items: [
+            "S가 여러 개라면 각 S는 서로 합쳐지지 않는 독립된 경로망을 만들어요.",
+            "4-2에서는 한 S가 두 개의 G로 갈라지고, 다른 S는 남은 G 하나로 이어져야 해요.",
+            "어느 경로망에도 속하지 않는 선이나 G가 있으면 완성으로 인정되지 않아요."
         ]
     }
 };
@@ -1797,6 +1805,133 @@ const stages = [
                 ]
             }
         ]
+    },
+    {
+        id: "multipath-hard",
+        shortName: "4-2",
+        label: "4-2단계: 두 개의 출발점",
+        description: "6x6 판에서 두 개의 S가 서로 다른 경로망을 이루며 세 개의 G에 도착하도록 모든 선을 연결해요.",
+        kind: "multipath",
+        ruleIds: ["peg", "multipath", "multistart"],
+        boardSize: 6,
+        pegs: [
+            { x: 3, y: 1 },
+            { x: 3, y: 0 },
+            { x: 5, y: 4 },
+            { x: 1, y: 4 }
+        ],
+        endpoints: {
+            starts: [
+                { x: 0, y: 1, dir: "W", label: "S" },
+                { x: 1, y: 5, dir: "S", label: "S" }
+            ],
+            ends: [
+                { x: 3, y: 0, dir: "N", label: "G" },
+                { x: 5, y: 2, dir: "E", label: "G" },
+                { x: 5, y: 5, dir: "E", label: "G" }
+            ]
+        },
+        pieces: [
+            {
+                id: "multipath-hard-1",
+                name: "다중 경로 조각 1",
+                color: "#e15f41",
+                cells: [
+                    { x: 2, y: 0 },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1, paths: ["N", "S"] },
+                    { x: 2, y: 1 }
+                ]
+            },
+            {
+                id: "multipath-hard-2",
+                name: "다중 경로 조각 2",
+                color: "#2f80ed",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 1, y: 0, hole: true },
+                    { x: 2, y: 0, paths: ["E", "S", "N"] },
+                    { x: 2, y: 1, paths: ["N", "W"] }
+                ]
+            },
+            {
+                id: "multipath-hard-3",
+                name: "다중 경로 조각 3",
+                color: "#27ae60",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 1, y: 0, hole: true },
+                    { x: 0, y: 1 },
+                    { x: 0, y: 2, hole: true, paths: ["S", "W"] }
+                ]
+            },
+            {
+                id: "multipath-hard-4",
+                name: "다중 경로 조각 4",
+                color: "#f2c94c",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 1, y: 0 },
+                    { x: 2, y: 0, paths: ["S", "N"] },
+                    { x: 0, y: 1 }
+                ]
+            },
+            {
+                id: "multipath-hard-5",
+                name: "다중 경로 조각 5",
+                color: "#9b51e0",
+                cells: [
+                    { x: 0, y: 0, paths: ["N", "E"] },
+                    { x: 1, y: 0, paths: ["W", "E"] },
+                    { x: 2, y: 0, paths: ["W", "E"] },
+                    { x: 0, y: 1, hole: true, paths: ["S", "E"] }
+                ]
+            },
+            {
+                id: "multipath-hard-6",
+                name: "다중 경로 조각 6",
+                color: "#00a6a6",
+                cells: [
+                    { x: 2, y: 0, hole: true, paths: ["W", "E"] },
+                    { x: 0, y: 1, paths: ["W", "S"] },
+                    { x: 1, y: 1 },
+                    { x: 2, y: 1 }
+                ]
+            },
+            {
+                id: "multipath-hard-7",
+                name: "다중 경로 조각 7",
+                color: "#eb5757",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 0, y: 1, hole: true },
+                    { x: 1, y: 1, paths: ["N", "S"] },
+                    { x: 2, y: 1 }
+                ]
+            },
+            {
+                id: "multipath-hard-8",
+                name: "다중 경로 조각 8",
+                color: "#3454d1",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["S", "E"] },
+                    { x: 1, y: 0, hole: true, paths: ["W", "N"] },
+                    { x: 2, y: 0, paths: ["N", "E"] },
+                    { x: 2, y: 1 }
+                ]
+            },
+            {
+                id: "multipath-hard-9",
+                name: "다중 경로 조각 9",
+                color: "#f2994a",
+                cells: [
+                    { x: 0, y: 0, paths: ["W", "S"] },
+                    { x: 1, y: 0, hole: true },
+                    { x: 0, y: 1, paths: ["N", "E"] },
+                    { x: 1, y: 1, paths: ["W", "E"] }
+                ]
+            }
+        ]
     }
 ];
 
@@ -2540,7 +2675,7 @@ function getProgressMessage() {
 
     if (!solved) {
         if (stage.kind === "multipath") {
-            return "판은 다 찼지만, 모든 선이 S에서 두 개의 G까지 이어지지는 않았어요.";
+            return `판은 다 찼지만, 모든 선이 ${getStartEndpoints(stage).length}개의 S에서 ${getEndEndpoints(stage).length}개의 G까지 이어지지는 않았어요.`;
         }
 
         return hasFieldRules(stage)
@@ -2573,7 +2708,7 @@ function getProgressMessage() {
     }
 
     if (stage.kind === "multipath") {
-        return "성공! 하나의 S에서 갈라진 모든 선이 두 개의 G까지 이어졌어요.";
+        return `성공! ${getStartEndpoints(stage).length}개의 S에서 시작한 모든 선이 ${getEndEndpoints(stage).length}개의 G까지 이어졌어요.`;
     }
 
     return hasPathRules(stage)
@@ -2926,43 +3061,62 @@ function isPathSolved(boardCells) {
 }
 
 function isMultiplePathSolved(stage, boardCells) {
-    const start = stage.endpoints.start;
+    const starts = getStartEndpoints(stage);
     const ends = getEndEndpoints(stage);
-    const startCell = boardCells[start.y][start.x];
 
-    if (!startCell?.paths.includes(start.dir) || ends.some((end) => !boardCells[end.y][end.x]?.paths.includes(end.dir))) {
+    if (starts.some((start) => !boardCells[start.y][start.x]?.paths.includes(start.dir)) || ends.some((end) => !boardCells[end.y][end.x]?.paths.includes(end.dir))) {
         return false;
     }
 
     const pathCells = boardCells.flat().filter((cell) => cell.paths.length > 0);
     const branchCount = pathCells.filter((cell) => cell.paths.length === 3).length;
 
-    if (branchCount !== ends.length - 1) {
+    if (branchCount !== ends.length - starts.length) {
         return false;
     }
 
     const visited = new Set();
-    const pending = [{ x: start.x, y: start.y }];
+    const reachedEndKeys = new Set();
 
-    while (pending.length > 0) {
-        const current = pending.pop();
-        const key = `${current.x},${current.y}`;
+    for (const start of starts) {
+        const startKey = `${start.x},${start.y}`;
 
-        if (visited.has(key)) {
-            continue;
+        if (visited.has(startKey)) {
+            return false;
         }
 
-        visited.add(key);
-        const cell = boardCells[current.y][current.x];
+        const component = new Set();
+        const pending = [{ x: start.x, y: start.y }];
 
-        cell.paths.forEach((dir) => {
-            if (isEndpointExit(current.x, current.y, dir, "start") || isEndpointExit(current.x, current.y, dir, "end")) {
-                return;
+        while (pending.length > 0) {
+            const current = pending.pop();
+            const key = `${current.x},${current.y}`;
+
+            if (component.has(key)) {
+                continue;
             }
 
-            const neighbor = getNeighbor(current.x, current.y, dir);
-            pending.push(neighbor);
-        });
+            component.add(key);
+            const cell = boardCells[current.y][current.x];
+
+            cell.paths.forEach((dir) => {
+                if (isEndpointExit(current.x, current.y, dir, "start") || isEndpointExit(current.x, current.y, dir, "end")) {
+                    return;
+                }
+
+                pending.push(getNeighbor(current.x, current.y, dir));
+            });
+        }
+
+        const componentStartCount = starts.filter((candidate) => component.has(`${candidate.x},${candidate.y}`)).length;
+        const componentEnds = ends.filter((end) => component.has(`${end.x},${end.y}`));
+
+        if (componentStartCount !== 1 || componentEnds.length === 0) {
+            return false;
+        }
+
+        component.forEach((key) => visited.add(key));
+        componentEnds.forEach((end) => reachedEndKeys.add(`${end.x},${end.y},${end.dir}`));
     }
 
     const internalConnectionCount = pathCells.reduce((count, cell) => {
@@ -2975,7 +3129,9 @@ function isMultiplePathSolved(stage, boardCells) {
         }).length;
     }, 0) / 2;
 
-    return visited.size === pathCells.length && internalConnectionCount === pathCells.length - 1;
+    return visited.size === pathCells.length
+        && reachedEndKeys.size === ends.length
+        && internalConnectionCount === pathCells.length - starts.length;
 }
 
 function isFieldSolved(boardCells) {
@@ -3069,8 +3225,16 @@ function getTurnDirection(incomingDir, outgoingDir) {
 
 function isEndpointExit(x, y, dir, endpointName) {
     const stage = getStage();
-    const endpoints = endpointName === "end" ? getEndEndpoints(stage) : [stage.endpoints?.start].filter(Boolean);
+    const endpoints = endpointName === "end" ? getEndEndpoints(stage) : getStartEndpoints(stage);
     return endpoints.some((endpoint) => endpoint.x === x && endpoint.y === y && endpoint.dir === dir);
+}
+
+function getStartEndpoints(stage = getStage()) {
+    if (Array.isArray(stage.endpoints?.starts)) {
+        return stage.endpoints.starts;
+    }
+
+    return stage.endpoints?.start ? [stage.endpoints.start] : [];
 }
 
 function getEndEndpoints(stage = getStage()) {
@@ -3082,7 +3246,7 @@ function getEndEndpoints(stage = getStage()) {
 }
 
 function getStageEndpoints(stage = getStage()) {
-    return [stage.endpoints?.start, ...getEndEndpoints(stage)].filter(Boolean);
+    return [...getStartEndpoints(stage), ...getEndEndpoints(stage)];
 }
 
 function getPlacedCell(x, y) {
