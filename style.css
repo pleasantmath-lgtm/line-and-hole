@@ -294,6 +294,30 @@ body {
     left: 0;
 }
 
+.path-crossing-bridge {
+    position: absolute;
+    z-index: 5;
+    border-radius: 999px;
+    background: #25364a;
+    pointer-events: none;
+}
+
+.path-crossing-bridge.vertical {
+    top: 28%;
+    left: 44%;
+    width: 12%;
+    height: 44%;
+    box-shadow: -4px 0 0 var(--piece-color, #ffffff), 4px 0 0 var(--piece-color, #ffffff);
+}
+
+.path-crossing-bridge.horizontal {
+    top: 44%;
+    left: 28%;
+    width: 44%;
+    height: 12%;
+    box-shadow: 0 -4px 0 var(--piece-color, #ffffff), 0 4px 0 var(--piece-color, #ffffff);
+}
+
 .endpoint {
     position: absolute;
     z-index: 2;

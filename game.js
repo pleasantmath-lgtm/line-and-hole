@@ -104,8 +104,16 @@ const ruleSections = {
         title: "여러 출발점",
         items: [
             "S가 여러 개라면 각 S는 서로 합쳐지지 않는 독립된 경로망을 만들어요.",
-            "4-2에서는 한 S가 두 개의 G로 갈라지고, 다른 S는 남은 G 하나로 이어져야 해요.",
+            "4-2에서는 S1은 G1로, S2는 갈라져 G2와 G3로 이어져야 해요.",
             "어느 경로망에도 속하지 않는 선이나 G가 있으면 완성으로 인정되지 않아요."
+        ]
+    },
+    crossing: {
+        title: "교차로",
+        items: [
+            "교차로에서는 가로 길과 세로 길이 같은 칸을 지나지만 서로 연결되지 않아요.",
+            "위로 솟아 보이는 길과 그 아래 길은 각각 마주 보는 방향으로 곧게 이어져요.",
+            "교차로를 갈림길처럼 사용하거나 방향을 꺾을 수는 없어요."
         ]
     }
 };
@@ -1809,26 +1817,26 @@ const stages = [
     {
         id: "multipath-hard",
         shortName: "4-2",
-        label: "4-2단계: 두 개의 출발점",
-        description: "6x6 판에서 두 개의 S가 서로 다른 경로망을 이루며 세 개의 G에 도착하도록 모든 선을 연결해요.",
+        label: "4-2단계: 교차하는 경로",
+        description: "6x6 판에서 S1-G1과 S2-G2·G3가 한 교차로를 공유하지만 서로 연결되지 않도록 모든 선을 이어요.",
         kind: "multipath",
-        ruleIds: ["peg", "multipath", "multistart"],
+        ruleIds: ["peg", "multipath", "multistart", "crossing"],
         boardSize: 6,
         pegs: [
-            { x: 3, y: 1 },
-            { x: 3, y: 0 },
-            { x: 5, y: 4 },
-            { x: 1, y: 4 }
+            { x: 4, y: 1 },
+            { x: 1, y: 3 },
+            { x: 1, y: 1 },
+            { x: 1, y: 2 }
         ],
         endpoints: {
             starts: [
-                { x: 0, y: 1, dir: "W", label: "S" },
-                { x: 1, y: 5, dir: "S", label: "S" }
+                { x: 0, y: 2, dir: "W", label: "S1", network: "1" },
+                { x: 2, y: 0, dir: "N", label: "S2", network: "2" }
             ],
             ends: [
-                { x: 3, y: 0, dir: "N", label: "G" },
-                { x: 5, y: 2, dir: "E", label: "G" },
-                { x: 5, y: 5, dir: "E", label: "G" }
+                { x: 5, y: 2, dir: "E", label: "G1", network: "1" },
+                { x: 2, y: 5, dir: "S", label: "G2", network: "2" },
+                { x: 5, y: 3, dir: "E", label: "G3", network: "2" }
             ]
         },
         pieces: [
@@ -1837,10 +1845,10 @@ const stages = [
                 name: "다중 경로 조각 1",
                 color: "#e15f41",
                 cells: [
-                    { x: 2, y: 0 },
-                    { x: 0, y: 1 },
-                    { x: 1, y: 1, paths: ["N", "S"] },
-                    { x: 2, y: 1 }
+                    { x: 1, y: 0, hole: true },
+                    { x: 0, y: 1, hole: true },
+                    { x: 1, y: 1 },
+                    { x: 0, y: 2, paths: ["E", "W"] }
                 ]
             },
             {
@@ -1848,10 +1856,10 @@ const stages = [
                 name: "다중 경로 조각 2",
                 color: "#2f80ed",
                 cells: [
-                    { x: 0, y: 0, hole: true },
-                    { x: 1, y: 0, hole: true },
-                    { x: 2, y: 0, paths: ["E", "S", "N"] },
-                    { x: 2, y: 1, paths: ["N", "W"] }
+                    { x: 0, y: 0, hole: true, paths: ["E", "N"] },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1 },
+                    { x: 2, y: 1, hole: true, paths: ["N", "S"] }
                 ]
             },
             {
@@ -1859,10 +1867,10 @@ const stages = [
                 name: "다중 경로 조각 3",
                 color: "#27ae60",
                 cells: [
-                    { x: 0, y: 0, hole: true },
-                    { x: 1, y: 0, hole: true },
-                    { x: 0, y: 1 },
-                    { x: 0, y: 2, hole: true, paths: ["S", "W"] }
+                    { x: 0, y: 0 },
+                    { x: 1, y: 0 },
+                    { x: 2, y: 0, paths: ["S", "N"] },
+                    { x: 2, y: 1, hole: true, paths: ["W", "N"] }
                 ]
             },
             {
@@ -1870,10 +1878,10 @@ const stages = [
                 name: "다중 경로 조각 4",
                 color: "#f2c94c",
                 cells: [
-                    { x: 0, y: 0, hole: true },
+                    { x: 0, y: 0, hole: true, paths: ["S", "N"] },
                     { x: 1, y: 0 },
-                    { x: 2, y: 0, paths: ["S", "N"] },
-                    { x: 0, y: 1 }
+                    { x: 0, y: 1, hole: true, paths: ["N", "S"] },
+                    { x: 0, y: 2, crossing: true, crossingAxis: "vertical", paths: ["N", "S", "E", "W"] }
                 ]
             },
             {
@@ -1881,10 +1889,10 @@ const stages = [
                 name: "다중 경로 조각 5",
                 color: "#9b51e0",
                 cells: [
-                    { x: 0, y: 0, paths: ["N", "E"] },
-                    { x: 1, y: 0, paths: ["W", "E"] },
-                    { x: 2, y: 0, paths: ["W", "E"] },
-                    { x: 0, y: 1, hole: true, paths: ["S", "E"] }
+                    { x: 0, y: 0, paths: ["S", "E"] },
+                    { x: 0, y: 1, paths: ["W", "N"] },
+                    { x: 0, y: 2, paths: ["W", "E"] },
+                    { x: 1, y: 2, paths: ["W", "E"] }
                 ]
             },
             {
@@ -1892,10 +1900,10 @@ const stages = [
                 name: "다중 경로 조각 6",
                 color: "#00a6a6",
                 cells: [
-                    { x: 2, y: 0, hole: true, paths: ["W", "E"] },
-                    { x: 0, y: 1, paths: ["W", "S"] },
-                    { x: 1, y: 1 },
-                    { x: 2, y: 1 }
+                    { x: 0, y: 0, hole: true },
+                    { x: 1, y: 0, hole: true },
+                    { x: 2, y: 0, paths: ["N", "S", "E"] },
+                    { x: 1, y: 1 }
                 ]
             },
             {
@@ -1903,10 +1911,10 @@ const stages = [
                 name: "다중 경로 조각 7",
                 color: "#eb5757",
                 cells: [
-                    { x: 0, y: 0 },
-                    { x: 0, y: 1, hole: true },
-                    { x: 1, y: 1, paths: ["N", "S"] },
-                    { x: 2, y: 1 }
+                    { x: 1, y: 0, paths: ["W", "E"] },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1, hole: true },
+                    { x: 1, y: 2 }
                 ]
             },
             {
@@ -1914,10 +1922,10 @@ const stages = [
                 name: "다중 경로 조각 8",
                 color: "#3454d1",
                 cells: [
-                    { x: 0, y: 0, hole: true, paths: ["S", "E"] },
-                    { x: 1, y: 0, hole: true, paths: ["W", "N"] },
-                    { x: 2, y: 0, paths: ["N", "E"] },
-                    { x: 2, y: 1 }
+                    { x: 0, y: 0 },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1 },
+                    { x: 2, y: 1, hole: true, paths: ["N", "S"] }
                 ]
             },
             {
@@ -1925,10 +1933,10 @@ const stages = [
                 name: "다중 경로 조각 9",
                 color: "#f2994a",
                 cells: [
-                    { x: 0, y: 0, paths: ["W", "S"] },
-                    { x: 1, y: 0, hole: true },
-                    { x: 0, y: 1, paths: ["N", "E"] },
-                    { x: 1, y: 1, paths: ["W", "E"] }
+                    { x: 0, y: 0, paths: ["N", "S"] },
+                    { x: 1, y: 0 },
+                    { x: 1, y: 1 },
+                    { x: 2, y: 1, hole: true }
                 ]
             }
         ]
@@ -2004,7 +2012,7 @@ function drawEndpoints() {
 
     getStageEndpoints(stage).forEach((endpoint) => {
         const element = document.createElement("div");
-        element.className = `endpoint ${endpoint.label === "S" ? "start" : "end"} dir-${endpoint.dir.toLowerCase()}`;
+        element.className = `endpoint ${endpoint.label.startsWith("S") ? "start" : "end"} dir-${endpoint.dir.toLowerCase()}`;
         element.style.setProperty("--endpoint-row", endpoint.y);
         element.style.setProperty("--endpoint-col", endpoint.x);
         element.textContent = endpoint.label;
@@ -2082,7 +2090,7 @@ function drawBoard() {
 
 function drawCellDetails(parent, cell) {
     if (cell.paths.length > 0) {
-        appendPath(parent, cell.paths);
+        appendPath(parent, cell.paths, cell.crossing ? cell.crossingAxis : "");
     }
 
     if (cell.hole) {
@@ -2375,6 +2383,8 @@ function updateGhost(clientX, clientY) {
         hole: cell.hole,
         turn: cell.turn,
         magnet: cell.magnet,
+        crossing: cell.crossing,
+        crossingAxis: cell.crossingAxis,
         paths: [...cell.paths],
         fields: [...cell.fields]
     }));
@@ -2470,6 +2480,8 @@ function rotatePlacedPiece(piece, clockwise) {
         hole: cell.hole,
         turn: cell.turn,
         magnet: cell.magnet,
+        crossing: cell.crossing,
+        crossingAxis: cell.crossingAxis,
         paths: [...cell.paths],
         fields: [...cell.fields]
     }));
@@ -2541,6 +2553,8 @@ function rotatePieceData(piece, clockwise) {
             hole: cell.hole,
             turn: cell.turn,
             magnet: cell.magnet,
+            crossing: cell.crossing,
+            crossingAxis: rotateCrossingAxis(cell.crossingAxis),
             paths: rotatePaths(cell.paths, clockwise),
             fields: rotatePaths(cell.fields, clockwise)
         };
@@ -2777,6 +2791,8 @@ function countSolutions() {
                         hole: cell.hole,
                         turn: cell.turn,
                         magnet: cell.magnet,
+                        crossing: cell.crossing,
+                        crossingAxis: cell.crossingAxis,
                         paths: [...cell.paths],
                         fields: [...cell.fields],
                         pieceId: piece.id,
@@ -2885,6 +2901,8 @@ function getPlacementVariants(piece) {
             hole: cell.hole,
             turn: cell.turn,
             magnet: cell.magnet,
+            crossing: cell.crossing,
+            crossingAxis: rotateCrossingAxis(cell.crossingAxis),
             paths: rotatePaths(cell.paths, true),
             fields: rotatePaths(cell.fields, true)
         }));
@@ -3069,7 +3087,13 @@ function isMultiplePathSolved(stage, boardCells) {
     }
 
     const pathCells = boardCells.flat().filter((cell) => cell.paths.length > 0);
-    const branchCount = pathCells.filter((cell) => cell.paths.length === 3).length;
+    const pathNodes = pathCells.flatMap((cell) => cell.crossing
+        ? [
+            { x: cell.x, y: cell.y, channel: "horizontal" },
+            { x: cell.x, y: cell.y, channel: "vertical" }
+        ]
+        : [{ x: cell.x, y: cell.y, channel: "main" }]);
+    const branchCount = pathCells.filter((cell) => !cell.crossing && cell.paths.length === 3).length;
 
     if (branchCount !== ends.length - starts.length) {
         return false;
@@ -3079,18 +3103,19 @@ function isMultiplePathSolved(stage, boardCells) {
     const reachedEndKeys = new Set();
 
     for (const start of starts) {
-        const startKey = `${start.x},${start.y}`;
+        const startCell = boardCells[start.y][start.x];
+        const startKey = getPathNodeKey(start.x, start.y, getPathChannel(startCell, start.dir));
 
         if (visited.has(startKey)) {
             return false;
         }
 
         const component = new Set();
-        const pending = [{ x: start.x, y: start.y }];
+        const pending = [{ x: start.x, y: start.y, channel: getPathChannel(startCell, start.dir) }];
 
         while (pending.length > 0) {
             const current = pending.pop();
-            const key = `${current.x},${current.y}`;
+            const key = getPathNodeKey(current.x, current.y, current.channel);
 
             if (component.has(key)) {
                 continue;
@@ -3099,19 +3124,31 @@ function isMultiplePathSolved(stage, boardCells) {
             component.add(key);
             const cell = boardCells[current.y][current.x];
 
-            cell.paths.forEach((dir) => {
+            getPathNodeDirections(cell, current.channel).forEach((dir) => {
                 if (isEndpointExit(current.x, current.y, dir, "start") || isEndpointExit(current.x, current.y, dir, "end")) {
                     return;
                 }
 
-                pending.push(getNeighbor(current.x, current.y, dir));
+                const neighbor = getNeighbor(current.x, current.y, dir);
+                const neighborCell = boardCells[neighbor.y][neighbor.x];
+                pending.push({
+                    ...neighbor,
+                    channel: getPathChannel(neighborCell, oppositeDir(dir))
+                });
             });
         }
 
-        const componentStartCount = starts.filter((candidate) => component.has(`${candidate.x},${candidate.y}`)).length;
-        const componentEnds = ends.filter((end) => component.has(`${end.x},${end.y}`));
+        const componentStartCount = starts.filter((candidate) => {
+            const cell = boardCells[candidate.y][candidate.x];
+            return component.has(getPathNodeKey(candidate.x, candidate.y, getPathChannel(cell, candidate.dir)));
+        }).length;
+        const componentEnds = ends.filter((end) => {
+            const cell = boardCells[end.y][end.x];
+            return component.has(getPathNodeKey(end.x, end.y, getPathChannel(cell, end.dir)));
+        });
+        const hasWrongDestination = start.network && componentEnds.some((end) => end.network !== start.network);
 
-        if (componentStartCount !== 1 || componentEnds.length === 0) {
+        if (componentStartCount !== 1 || componentEnds.length === 0 || hasWrongDestination) {
             return false;
         }
 
@@ -3119,9 +3156,10 @@ function isMultiplePathSolved(stage, boardCells) {
         componentEnds.forEach((end) => reachedEndKeys.add(`${end.x},${end.y},${end.dir}`));
     }
 
-    const internalConnectionCount = pathCells.reduce((count, cell) => {
-        return count + cell.paths.filter((dir) => {
-            if (isEndpointExit(cell.x, cell.y, dir, "start") || isEndpointExit(cell.x, cell.y, dir, "end")) {
+    const internalConnectionCount = pathNodes.reduce((count, node) => {
+        const cell = boardCells[node.y][node.x];
+        return count + getPathNodeDirections(cell, node.channel).filter((dir) => {
+            if (isEndpointExit(node.x, node.y, dir, "start") || isEndpointExit(node.x, node.y, dir, "end")) {
                 return false;
             }
 
@@ -3129,9 +3167,29 @@ function isMultiplePathSolved(stage, boardCells) {
         }).length;
     }, 0) / 2;
 
-    return visited.size === pathCells.length
+    return visited.size === pathNodes.length
         && reachedEndKeys.size === ends.length
-        && internalConnectionCount === pathCells.length - starts.length;
+        && internalConnectionCount === pathNodes.length - starts.length;
+}
+
+function getPathChannel(cell, dir) {
+    if (!cell.crossing) {
+        return "main";
+    }
+
+    return dir === "N" || dir === "S" ? "vertical" : "horizontal";
+}
+
+function getPathNodeDirections(cell, channel) {
+    if (!cell.crossing) {
+        return cell.paths;
+    }
+
+    return channel === "vertical" ? ["N", "S"] : ["E", "W"];
+}
+
+function getPathNodeKey(x, y, channel) {
+    return `${x},${y},${channel}`;
 }
 
 function isFieldSolved(boardCells) {
@@ -3169,9 +3227,17 @@ function allPathConnectionsAreValid(boardCells) {
                 continue;
             }
 
-            const allowedPathCounts = hasMultiplePathRules(stage) ? [2, 3] : [2];
+            const allowedPathCounts = hasMultiplePathRules(stage) ? [2, 3, 4] : [2];
 
             if (!allowedPathCounts.includes(cell.paths.length)) {
+                return false;
+            }
+
+            if (cell.paths.length === 4 && (!cell.crossing || !dirs.every((dir) => cell.paths.includes(dir)))) {
+                return false;
+            }
+
+            if (cell.crossing && cell.paths.length !== 4) {
                 return false;
             }
 
@@ -3715,12 +3781,19 @@ function appendPeg(parent, peg = {}) {
     parent.appendChild(pegElement);
 }
 
-function appendPath(parent, paths) {
+function appendPath(parent, paths, crossingAxis = "") {
     paths.forEach((dir) => {
         const segment = document.createElement("span");
         segment.className = `path-segment ${dir.toLowerCase()}`;
         parent.appendChild(segment);
     });
+
+    if (crossingAxis) {
+        parent.classList.add("path-crossing");
+        const bridge = document.createElement("span");
+        bridge.className = `path-crossing-bridge ${crossingAxis}`;
+        parent.appendChild(bridge);
+    }
 }
 
 function normalizePiece(piece) {
@@ -3738,6 +3811,8 @@ function normalizeCells(cells) {
             hole: cell.hole,
             turn: cell.turn,
             magnet: cell.magnet,
+            crossing: cell.crossing,
+            crossingAxis: cell.crossingAxis,
             paths: [...cell.paths],
             fields: [...cell.fields]
         }))
@@ -3765,11 +3840,23 @@ function rotatePaths(paths, clockwise) {
     });
 }
 
+function rotateCrossingAxis(axis) {
+    if (axis === "vertical") {
+        return "horizontal";
+    }
+
+    if (axis === "horizontal") {
+        return "vertical";
+    }
+
+    return "";
+}
+
 function getCellsKey(cells) {
     return cells.map((cell) => {
         const pathKey = [...cell.paths].sort().join("");
         const fieldKey = [...cell.fields].sort().join("");
-        return `${cell.x},${cell.y},${cell.hole ? 1 : 0},${cell.turn ?? ""},${cell.magnet ?? ""},${pathKey},${fieldKey}`;
+        return `${cell.x},${cell.y},${cell.hole ? 1 : 0},${cell.turn ?? ""},${cell.magnet ?? ""},${cell.crossing ? 1 : 0},${pathKey},${fieldKey}`;
     }).join("|");
 }
 
@@ -3846,6 +3933,8 @@ function copyCell(cell) {
         hole: Boolean(cell.hole),
         turn: cell.turn ?? "",
         magnet: cell.magnet ?? "",
+        crossing: Boolean(cell.crossing),
+        crossingAxis: cell.crossingAxis ?? (cell.crossing ? "vertical" : ""),
         paths: cell.paths ? [...cell.paths] : [],
         fields: cell.fields ? [...cell.fields] : []
     };
