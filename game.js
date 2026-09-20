@@ -104,7 +104,7 @@ const ruleSections = {
         title: "여러 출발점",
         items: [
             "S가 여러 개라면 각 S는 서로 합쳐지지 않는 독립된 경로망을 만들어요.",
-            "4-2에서는 S1은 G1로, S2는 갈라져 G2와 G3로 이어져야 해요.",
+            "4-2에서는 한 S는 하나의 G로, 다른 S는 갈라져 나머지 두 G로 이어져야 해요.",
             "어느 경로망에도 속하지 않는 선이나 G가 있으면 완성으로 인정되지 않아요."
         ]
     },
@@ -1818,7 +1818,7 @@ const stages = [
         id: "multipath-hard",
         shortName: "4-2",
         label: "4-2단계: 교차하는 경로",
-        description: "6x6 판에서 S1-G1과 S2-G2·G3가 한 교차로를 공유하지만 서로 연결되지 않도록 모든 선을 이어요.",
+        description: "6x6 판에서 두 경로망이 한 교차로를 공유하지만 서로 연결되지 않도록 모든 선을 이어요.",
         kind: "multipath",
         ruleIds: ["peg", "multipath", "multistart", "crossing"],
         boardSize: 6,
@@ -1830,13 +1830,13 @@ const stages = [
         ],
         endpoints: {
             starts: [
-                { x: 0, y: 2, dir: "W", label: "S1", network: "1" },
-                { x: 2, y: 0, dir: "N", label: "S2", network: "2" }
+                { x: 0, y: 2, dir: "W", label: "S" },
+                { x: 2, y: 0, dir: "N", label: "S" }
             ],
             ends: [
-                { x: 5, y: 2, dir: "E", label: "G1", network: "1" },
-                { x: 2, y: 5, dir: "S", label: "G2", network: "2" },
-                { x: 5, y: 3, dir: "E", label: "G3", network: "2" }
+                { x: 5, y: 2, dir: "E", label: "G" },
+                { x: 2, y: 5, dir: "S", label: "G" },
+                { x: 5, y: 3, dir: "E", label: "G" }
             ]
         },
         pieces: [
