@@ -91,6 +91,14 @@ const ruleSections = {
             "같은 조각 안쪽의 자기력선은 이 단계에서 표시하지 않아요.",
             "붙어 있는 모든 N-S 사이에 자기력선이 있어야 하는 것은 아니에요."
         ]
+    },
+    multipath: {
+        title: "다중 경로",
+        items: [
+            "하나의 S에서 출발한 길이 갈림길에서 나뉘어 여러 G에 도착해야 해요.",
+            "각 G는 서로 다른 가지의 끝에 연결되어야 해요.",
+            "그려진 모든 선은 S에서 이어지는 경로에 포함되어야 하며, 남는 선이나 끊긴 선은 없어야 해요."
+        ]
     }
 };
 const piecePalette = [
@@ -1706,6 +1714,89 @@ const stages = [
                 ]
             }
         ]
+    },
+    {
+        id: "multipath-tutorial",
+        shortName: "4-1",
+        label: "4-1단계: 다중 경로 튜토리얼",
+        description: "5x5 판에서 하나의 S를 두 개의 G로 나누는 갈림길을 만들고, 모든 선을 빠짐없이 연결해요.",
+        kind: "multipath",
+        ruleIds: ["peg", "multipath"],
+        boardSize: 5,
+        pegs: [
+            { x: 1, y: 0 },
+            { x: 3, y: 2 },
+            { x: 4, y: 3 }
+        ],
+        endpoints: {
+            start: { x: 0, y: 2, dir: "W", label: "S" },
+            ends: [
+                { x: 4, y: 2, dir: "E", label: "G" },
+                { x: 3, y: 4, dir: "S", label: "G" }
+            ]
+        },
+        pieces: [
+            {
+                id: "multipath-a",
+                name: "다중 경로 조각 1",
+                color: "#e15f41",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 1, y: 0, hole: true },
+                    { x: 0, y: 1, hole: true },
+                    { x: 0, y: 2, paths: ["W", "E"] },
+                    { x: 1, y: 2, paths: ["W", "E"] }
+                ]
+            },
+            {
+                id: "multipath-b",
+                name: "다중 경로 조각 2",
+                color: "#2f80ed",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 1, y: 0 },
+                    { x: 2, y: 0 },
+                    { x: 1, y: 1, paths: ["W", "E"] },
+                    { x: 1, y: 2, hole: true }
+                ]
+            },
+            {
+                id: "multipath-c",
+                name: "다중 경로 조각 3",
+                color: "#27ae60",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 1, y: 0, paths: ["S", "E"] },
+                    { x: 1, y: 1, paths: ["W", "N", "S"] },
+                    { x: 0, y: 2, paths: ["E", "S"] },
+                    { x: 1, y: 2, paths: ["N", "W"] }
+                ]
+            },
+            {
+                id: "multipath-d",
+                name: "다중 경로 조각 4",
+                color: "#f2c94c",
+                cells: [
+                    { x: 1, y: 0, paths: ["W", "S"] },
+                    { x: 1, y: 1, paths: ["N", "E"] },
+                    { x: 0, y: 2, hole: true },
+                    { x: 1, y: 2, hole: true },
+                    { x: 1, y: 3 }
+                ]
+            },
+            {
+                id: "multipath-e",
+                name: "다중 경로 조각 5",
+                color: "#9b51e0",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1, paths: ["N", "E"] },
+                    { x: 2, y: 1, hole: true, paths: ["W", "E"] },
+                    { x: 3, y: 1, paths: ["W", "S"] }
+                ]
+            }
+        ]
     }
 ];
 
@@ -1776,7 +1867,7 @@ function drawEndpoints() {
         return;
     }
 
-    Object.values(stage.endpoints).forEach((endpoint) => {
+    getStageEndpoints(stage).forEach((endpoint) => {
         const element = document.createElement("div");
         element.className = `endpoint ${endpoint.label === "S" ? "start" : "end"} dir-${endpoint.dir.toLowerCase()}`;
         element.style.setProperty("--endpoint-row", endpoint.y);
@@ -1801,7 +1892,7 @@ function setEndpointPadding(stage) {
         return;
     }
 
-    Object.values(stage.endpoints).forEach((endpoint) => {
+    getStageEndpoints(stage).forEach((endpoint) => {
         boardScene.style.setProperty(paddings[endpoint.dir], "58px");
     });
 }
@@ -2448,6 +2539,10 @@ function getProgressMessage() {
     const solved = (!hasPathRules(stage) || isPathSolved(boardCells)) && (!hasFieldRules(stage) || isFieldSolved(boardCells));
 
     if (!solved) {
+        if (stage.kind === "multipath") {
+            return "판은 다 찼지만, 모든 선이 S에서 두 개의 G까지 이어지지는 않았어요.";
+        }
+
         return hasFieldRules(stage)
             ? "판은 다 찼지만, 길이나 자기력선의 극성 및 조각 경계가 아직 맞지 않아요."
             : "판은 다 찼지만, 아직 S에서 G까지 하나의 길로 이어지지 않았어요.";
@@ -2475,6 +2570,10 @@ function getProgressMessage() {
 
     if (stage.kind === "boss") {
         return "성공! 색 peg, L/R 회전, 자석, 자기력선을 모두 맞췄어요.";
+    }
+
+    if (stage.kind === "multipath") {
+        return "성공! 하나의 S에서 갈라진 모든 선이 두 개의 G까지 이어졌어요.";
     }
 
     return hasPathRules(stage)
@@ -2777,6 +2876,10 @@ function isPathSolved(boardCells) {
         return false;
     }
 
+    if (hasMultiplePathRules(stage)) {
+        return isMultiplePathSolved(stage, boardCells);
+    }
+
     const startCell = boardCells[stage.endpoints.start.y][stage.endpoints.start.x];
 
     if (!startCell || !startCell.paths.includes(stage.endpoints.start.dir)) {
@@ -2822,6 +2925,59 @@ function isPathSolved(boardCells) {
     }
 }
 
+function isMultiplePathSolved(stage, boardCells) {
+    const start = stage.endpoints.start;
+    const ends = getEndEndpoints(stage);
+    const startCell = boardCells[start.y][start.x];
+
+    if (!startCell?.paths.includes(start.dir) || ends.some((end) => !boardCells[end.y][end.x]?.paths.includes(end.dir))) {
+        return false;
+    }
+
+    const pathCells = boardCells.flat().filter((cell) => cell.paths.length > 0);
+    const branchCount = pathCells.filter((cell) => cell.paths.length === 3).length;
+
+    if (branchCount !== ends.length - 1) {
+        return false;
+    }
+
+    const visited = new Set();
+    const pending = [{ x: start.x, y: start.y }];
+
+    while (pending.length > 0) {
+        const current = pending.pop();
+        const key = `${current.x},${current.y}`;
+
+        if (visited.has(key)) {
+            continue;
+        }
+
+        visited.add(key);
+        const cell = boardCells[current.y][current.x];
+
+        cell.paths.forEach((dir) => {
+            if (isEndpointExit(current.x, current.y, dir, "start") || isEndpointExit(current.x, current.y, dir, "end")) {
+                return;
+            }
+
+            const neighbor = getNeighbor(current.x, current.y, dir);
+            pending.push(neighbor);
+        });
+    }
+
+    const internalConnectionCount = pathCells.reduce((count, cell) => {
+        return count + cell.paths.filter((dir) => {
+            if (isEndpointExit(cell.x, cell.y, dir, "start") || isEndpointExit(cell.x, cell.y, dir, "end")) {
+                return false;
+            }
+
+            return true;
+        }).length;
+    }, 0) / 2;
+
+    return visited.size === pathCells.length && internalConnectionCount === pathCells.length - 1;
+}
+
 function isFieldSolved(boardCells) {
     const stage = getStage();
 
@@ -2857,7 +3013,9 @@ function allPathConnectionsAreValid(boardCells) {
                 continue;
             }
 
-            if (cell.paths.length !== 2) {
+            const allowedPathCounts = hasMultiplePathRules(stage) ? [2, 3] : [2];
+
+            if (!allowedPathCounts.includes(cell.paths.length)) {
                 return false;
             }
 
@@ -2910,8 +3068,21 @@ function getTurnDirection(incomingDir, outgoingDir) {
 }
 
 function isEndpointExit(x, y, dir, endpointName) {
-    const endpoint = getStage().endpoints?.[endpointName];
-    return Boolean(endpoint && endpoint.x === x && endpoint.y === y && endpoint.dir === dir);
+    const stage = getStage();
+    const endpoints = endpointName === "end" ? getEndEndpoints(stage) : [stage.endpoints?.start].filter(Boolean);
+    return endpoints.some((endpoint) => endpoint.x === x && endpoint.y === y && endpoint.dir === dir);
+}
+
+function getEndEndpoints(stage = getStage()) {
+    if (Array.isArray(stage.endpoints?.ends)) {
+        return stage.endpoints.ends;
+    }
+
+    return stage.endpoints?.end ? [stage.endpoints.end] : [];
+}
+
+function getStageEndpoints(stage = getStage()) {
+    return [stage.endpoints?.start, ...getEndEndpoints(stage)].filter(Boolean);
 }
 
 function getPlacedCell(x, y) {
@@ -2994,11 +3165,15 @@ function createEmptyBoardCells(stage = getStage()) {
 }
 
 function hasPegRules(stage) {
-    return stage.kind === "peg" || stage.kind === "hybrid" || stage.kind === "turn" || stage.kind === "color" || stage.kind === "magnet" || stage.kind === "field" || stage.kind === "boss";
+    return stage.kind === "peg" || stage.kind === "hybrid" || stage.kind === "turn" || stage.kind === "color" || stage.kind === "magnet" || stage.kind === "field" || stage.kind === "boss" || stage.kind === "multipath";
 }
 
 function hasPathRules(stage) {
-    return stage.kind === "path" || stage.kind === "hybrid" || stage.kind === "turn" || stage.kind === "color" || stage.kind === "magnet" || stage.kind === "field" || stage.kind === "boss";
+    return stage.kind === "path" || stage.kind === "hybrid" || stage.kind === "turn" || stage.kind === "color" || stage.kind === "magnet" || stage.kind === "field" || stage.kind === "boss" || stage.kind === "multipath";
+}
+
+function hasMultiplePathRules(stage) {
+    return stage.kind === "multipath";
 }
 
 function hasColorPegRules(stage) {
@@ -3182,6 +3357,10 @@ function getFallbackRuleIds(stage) {
 
     if (stage.kind === "boss") {
         return ["peg", "path", "turn", "color", "magnet", "field"];
+    }
+
+    if (stage.kind === "multipath") {
+        return ["peg", "multipath"];
     }
 
     return ["peg", "path"];
