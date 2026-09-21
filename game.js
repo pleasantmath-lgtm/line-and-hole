@@ -103,8 +103,8 @@ const ruleSections = {
     multistart: {
         title: "여러 출발점",
         items: [
-            "S가 여러 개라면 각 S는 서로 합쳐지지 않는 독립된 경로망을 만들어요.",
-            "한 S는 하나의 G로, 다른 S는 단계 설명에 적힌 나머지 G들로 갈라져 이어져야 해요.",
+            "S와 G가 여러 개라면 단계 설명에 맞게 경로망을 나누거나 합쳐야 해요.",
+            "G가 더 많으면 길이 갈라지고, S가 더 많으면 여러 출발점의 길이 하나의 G를 향해 합쳐질 수 있어요.",
             "어느 경로망에도 속하지 않는 선이나 G가 있으면 완성으로 인정되지 않아요."
         ]
     },
@@ -2103,6 +2103,170 @@ const stages = [
                 ]
             }
         ]
+    },
+    {
+        id: "multipath-merge",
+        shortName: "4-4",
+        label: "4-4단계: 합류하는 길",
+        description: "7x7 판에서 네 S의 길을 두 경로망으로 합쳐 각각의 G에 도착시키고, 네 교차로에서는 길을 서로 연결하지 마세요.",
+        kind: "multipath",
+        pathFlow: "merge",
+        ruleIds: ["peg", "multipath", "multistart", "crossing"],
+        boardSize: 7,
+        pegs: [
+            { x: 4, y: 4 },
+            { x: 5, y: 4 },
+            { x: 0, y: 2 },
+            { x: 1, y: 2 },
+            { x: 5, y: 6 }
+        ],
+        endpoints: {
+            starts: [
+                { x: 0, y: 1, dir: "W", label: "S" },
+                { x: 0, y: 5, dir: "W", label: "S" },
+                { x: 1, y: 0, dir: "N", label: "S" },
+                { x: 3, y: 0, dir: "N", label: "S" }
+            ],
+            ends: [
+                { x: 6, y: 3, dir: "E", label: "G" },
+                { x: 2, y: 6, dir: "S", label: "G" }
+            ]
+        },
+        pieces: [
+            {
+                id: "multipath-merge-1",
+                name: "합류 경로 조각 1",
+                color: "#e15f41",
+                cells: [
+                    { x: 2, y: 0 },
+                    { x: 0, y: 1, hole: true, paths: ["E", "W"] },
+                    { x: 1, y: 1, crossing: true, crossingAxis: "horizontal", paths: ["N", "S", "E", "W"] },
+                    { x: 2, y: 1, paths: ["W", "E"] },
+                    { x: 0, y: 2, hole: true }
+                ]
+            },
+            {
+                id: "multipath-merge-2",
+                name: "합류 경로 조각 2",
+                color: "#2f80ed",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 0, y: 1, paths: ["W", "E"] },
+                    { x: 1, y: 1, crossing: true, crossingAxis: "vertical", paths: ["W", "E", "N", "S"] },
+                    { x: 1, y: 2, paths: ["N", "S"] }
+                ]
+            },
+            {
+                id: "multipath-merge-3",
+                name: "합류 경로 조각 3",
+                color: "#27ae60",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 1, y: 0, paths: ["S", "E"] },
+                    { x: 0, y: 1 },
+                    { x: 0, y: 2, paths: ["E", "W"] }
+                ]
+            },
+            {
+                id: "multipath-merge-4",
+                name: "합류 경로 조각 4",
+                color: "#f2c94c",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 1, y: 0, paths: ["S", "N"] },
+                    { x: 0, y: 1 },
+                    { x: 0, y: 2 }
+                ]
+            },
+            {
+                id: "multipath-merge-5",
+                name: "합류 경로 조각 5",
+                color: "#9b51e0",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 1, y: 0, hole: true },
+                    { x: 2, y: 0, paths: ["S", "N"] },
+                    { x: 0, y: 1, hole: true, paths: ["E", "W"] }
+                ]
+            },
+            {
+                id: "multipath-merge-6",
+                name: "합류 경로 조각 6",
+                color: "#00a6a6",
+                cells: [
+                    { x: 0, y: 0, paths: ["W", "E"] },
+                    { x: 0, y: 1, hole: true },
+                    { x: 0, y: 2, hole: true },
+                    { x: 1, y: 2, paths: ["N", "S", "E"] }
+                ]
+            },
+            {
+                id: "multipath-merge-7",
+                name: "합류 경로 조각 7",
+                color: "#eb5757",
+                cells: [
+                    { x: 0, y: 0, paths: ["W", "E"] },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1 },
+                    { x: 2, y: 1, hole: true, paths: ["S", "N"] }
+                ]
+            },
+            {
+                id: "multipath-merge-8",
+                name: "합류 경로 조각 8",
+                color: "#3454d1",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1, hole: true, paths: ["N", "S"] },
+                    { x: 0, y: 2, hole: true, paths: ["E", "W"] }
+                ]
+            },
+            {
+                id: "multipath-merge-9",
+                name: "합류 경로 조각 9",
+                color: "#f2994a",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 1, y: 0, paths: ["S", "N"] },
+                    { x: 2, y: 0 },
+                    { x: 2, y: 1, paths: ["E", "W"] }
+                ]
+            },
+            {
+                id: "multipath-merge-10",
+                name: "합류 경로 조각 10",
+                color: "#6fcf97",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["N", "S"] },
+                    { x: 1, y: 0, hole: true },
+                    { x: 0, y: 1, crossing: true, crossingAxis: "vertical", paths: ["W", "E", "N", "S"] },
+                    { x: 1, y: 1, paths: ["W", "E"] }
+                ]
+            },
+            {
+                id: "multipath-merge-11",
+                name: "합류 경로 조각 11",
+                color: "#bb6bd9",
+                cells: [
+                    { x: 1, y: 0, hole: true, paths: ["W", "S"] },
+                    { x: 1, y: 1, hole: true, paths: ["S", "N", "E"] },
+                    { x: 0, y: 2, crossing: true, crossingAxis: "horizontal", paths: ["S", "N", "W", "E"] },
+                    { x: 1, y: 2, hole: true, paths: ["W", "N"] }
+                ]
+            },
+            {
+                id: "multipath-merge-12",
+                name: "합류 경로 조각 12",
+                color: "#56ccf2",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 1, y: 0, hole: true },
+                    { x: 2, y: 0 },
+                    { x: 1, y: 1, paths: ["E", "S"] }
+                ]
+            }
+        ]
     }
 ];
 
@@ -3244,6 +3408,8 @@ function isPathSolved(boardCells) {
 function isMultiplePathSolved(stage, boardCells) {
     const starts = getStartEndpoints(stage);
     const ends = getEndEndpoints(stage);
+    const mergesTowardGoals = stage.pathFlow === "merge";
+    const expectedComponentCount = mergesTowardGoals ? ends.length : starts.length;
 
     if (starts.some((start) => !boardCells[start.y][start.x]?.paths.includes(start.dir)) || ends.some((end) => !boardCells[end.y][end.x]?.paths.includes(end.dir))) {
         return false;
@@ -3258,20 +3424,24 @@ function isMultiplePathSolved(stage, boardCells) {
         : [{ x: cell.x, y: cell.y, channel: "main" }]);
     const branchCount = pathCells.filter((cell) => !cell.crossing && cell.paths.length === 3).length;
 
-    if (branchCount !== ends.length - starts.length) {
+    if (branchCount !== starts.length + ends.length - 2 * expectedComponentCount) {
         return false;
     }
 
     const visited = new Set();
+    const reachedStartKeys = new Set();
     const reachedEndKeys = new Set();
+    let componentCount = 0;
 
     for (const start of starts) {
         const startCell = boardCells[start.y][start.x];
         const startKey = getPathNodeKey(start.x, start.y, getPathChannel(startCell, start.dir));
 
         if (visited.has(startKey)) {
-            return false;
+            continue;
         }
+
+        componentCount++;
 
         const component = new Set();
         const pending = [{ x: start.x, y: start.y, channel: getPathChannel(startCell, start.dir) }];
@@ -3301,21 +3471,26 @@ function isMultiplePathSolved(stage, boardCells) {
             });
         }
 
-        const componentStartCount = starts.filter((candidate) => {
+        const componentStarts = starts.filter((candidate) => {
             const cell = boardCells[candidate.y][candidate.x];
             return component.has(getPathNodeKey(candidate.x, candidate.y, getPathChannel(cell, candidate.dir)));
-        }).length;
+        });
         const componentEnds = ends.filter((end) => {
             const cell = boardCells[end.y][end.x];
             return component.has(getPathNodeKey(end.x, end.y, getPathChannel(cell, end.dir)));
         });
-        const hasWrongDestination = start.network && componentEnds.some((end) => end.network !== start.network);
+        const hasWrongDestination = componentStarts.some((candidate) => candidate.network
+            && componentEnds.some((end) => end.network !== candidate.network));
+        const hasInvalidEndpointBalance = mergesTowardGoals
+            ? componentStarts.length === 0 || componentEnds.length !== 1
+            : componentStarts.length !== 1 || componentEnds.length === 0;
 
-        if (componentStartCount !== 1 || componentEnds.length === 0 || hasWrongDestination) {
+        if (hasInvalidEndpointBalance || hasWrongDestination) {
             return false;
         }
 
         component.forEach((key) => visited.add(key));
+        componentStarts.forEach((candidate) => reachedStartKeys.add(`${candidate.x},${candidate.y},${candidate.dir}`));
         componentEnds.forEach((end) => reachedEndKeys.add(`${end.x},${end.y},${end.dir}`));
     }
 
@@ -3331,8 +3506,10 @@ function isMultiplePathSolved(stage, boardCells) {
     }, 0) / 2;
 
     return visited.size === pathNodes.length
+        && reachedStartKeys.size === starts.length
         && reachedEndKeys.size === ends.length
-        && internalConnectionCount === pathNodes.length - starts.length;
+        && componentCount === expectedComponentCount
+        && internalConnectionCount === pathNodes.length - componentCount;
 }
 
 function getPathChannel(cell, dir) {
