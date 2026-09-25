@@ -16,6 +16,7 @@ const boardSizeValue = document.getElementById("boardSizeValue");
 const traySizeValue = document.getElementById("traySizeValue");
 const helpToggle = document.getElementById("helpToggle");
 const helpContent = document.getElementById("helpContent");
+const helpCard = helpToggle.closest(".help-card");
 const rulesToggle = document.getElementById("rulesToggle");
 const rulesContent = document.getElementById("rulesContent");
 const ruleOverlay = document.getElementById("ruleOverlay");
@@ -2437,6 +2438,12 @@ function drawTray() {
     pieceTray.innerHTML = "";
 
     pieces.forEach((piece) => {
+        const pieceSlot = document.createElement("div");
+        const slotSize = getPieceSlotSize(piece, trayCellSize);
+        pieceSlot.className = "piece-slot";
+        pieceSlot.style.width = `${slotSize}px`;
+        pieceSlot.style.height = `${slotSize}px`;
+
         const pieceElement = document.createElement("div");
         pieceElement.className = "piece";
         pieceElement.dataset.pieceId = piece.id;
@@ -2453,7 +2460,8 @@ function drawTray() {
         pieceElement.addEventListener("pointerdown", (event) => startTrayDrag(event, piece.id));
         pieceElement.addEventListener("contextmenu", preventPuzzleContextMenu);
 
-        pieceTray.appendChild(pieceElement);
+        pieceSlot.appendChild(pieceElement);
+        pieceTray.appendChild(pieceSlot);
     });
 }
 
@@ -4052,6 +4060,15 @@ function toggleHelpContent() {
     helpToggle.setAttribute("aria-expanded", String(isOpening));
 }
 
+function closeHelpContent() {
+    if (helpContent.hidden) {
+        return;
+    }
+
+    helpContent.hidden = true;
+    helpToggle.setAttribute("aria-expanded", "false");
+}
+
 function toggleRulesContent() {
     const isOpening = rulesContent.hidden;
     rulesContent.hidden = !isOpening;
@@ -4170,6 +4187,11 @@ function getPieceMetrics(piece, cellSize) {
         width: (maxX + 1) * cellSize + maxX * cellGap,
         height: (maxY + 1) * cellSize + maxY * cellGap
     };
+}
+
+function getPieceSlotSize(piece, cellSize) {
+    const metrics = getPieceMetrics(piece, cellSize);
+    return Math.max(metrics.width, metrics.height);
 }
 
 function rotatePaths(paths, clockwise) {
@@ -4330,6 +4352,10 @@ currentStageName.addEventListener("click", toggleStageMenu);
 document.addEventListener("pointerdown", (event) => {
     if (!event.target.closest(".level-picker")) {
         closeStageMenu();
+    }
+
+    if (!helpContent.hidden && !helpCard.contains(event.target)) {
+        closeHelpContent();
     }
 });
 solveButton.addEventListener("click", runSolver);

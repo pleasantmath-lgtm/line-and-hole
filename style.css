@@ -541,9 +541,15 @@ body {
     background: #f8fafc;
 }
 
+.piece-slot {
+    position: relative;
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+}
+
 .piece {
     position: relative;
-    flex: 0 0 auto;
     cursor: grab;
     touch-action: none;
     outline: none;
