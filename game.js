@@ -2268,6 +2268,169 @@ const stages = [
                 ]
             }
         ]
+    },
+    {
+        id: "multipath-weave",
+        shortName: "4-5",
+        label: "4-5단계: 뒤엉킨 길",
+        description: "7x7 판에서 서로 가까이 놓인 세 S와 세 G를 섣불리 짝짓지 말고, 다섯 교차로를 지나 세 경로를 모두 이으세요.",
+        kind: "multipath",
+        ruleIds: ["peg", "multipath", "multistart", "crossing"],
+        boardSize: 7,
+        pegs: [
+            { x: 1, y: 6 },
+            { x: 2, y: 2 },
+            { x: 5, y: 2 },
+            { x: 4, y: 1 },
+            { x: 5, y: 4 }
+        ],
+        endpoints: {
+            starts: [
+                { x: 1, y: 0, dir: "N", label: "S" },
+                { x: 6, y: 2, dir: "E", label: "S" },
+                { x: 4, y: 6, dir: "S", label: "S" }
+            ],
+            ends: [
+                { x: 2, y: 0, dir: "N", label: "G" },
+                { x: 6, y: 3, dir: "E", label: "G" },
+                { x: 3, y: 6, dir: "S", label: "G" }
+            ]
+        },
+        pieces: [
+            {
+                id: "multipath-weave-1",
+                name: "뒤엉킨 경로 조각 1",
+                color: "#e15f41",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 1, y: 0, paths: ["S", "N"] },
+                    { x: 2, y: 0, hole: true, paths: ["N", "S"] },
+                    { x: 2, y: 1, paths: ["N", "W"] },
+                    { x: 2, y: 2, hole: true }
+                ]
+            },
+            {
+                id: "multipath-weave-2",
+                name: "뒤엉킨 경로 조각 2",
+                color: "#2f80ed",
+                cells: [
+                    { x: 0, y: 0, crossing: true, crossingAxis: "horizontal", paths: ["E", "W", "N", "S"] },
+                    { x: 1, y: 0, paths: ["W", "E"] },
+                    { x: 0, y: 1, paths: ["N", "E"] },
+                    { x: 0, y: 2 }
+                ]
+            },
+            {
+                id: "multipath-weave-3",
+                name: "뒤엉킨 경로 조각 3",
+                color: "#27ae60",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["S", "N"] },
+                    { x: 1, y: 0, hole: true },
+                    { x: 2, y: 0 },
+                    { x: 2, y: 1, hole: true }
+                ]
+            },
+            {
+                id: "multipath-weave-4",
+                name: "뒤엉킨 경로 조각 4",
+                color: "#f2c94c",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 0, y: 1, hole: true },
+                    { x: 1, y: 1 },
+                    { x: 2, y: 1, hole: true, paths: ["N", "S"] }
+                ]
+            },
+            {
+                id: "multipath-weave-5",
+                name: "뒤엉킨 경로 조각 5",
+                color: "#9b51e0",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["N", "W"] },
+                    { x: 1, y: 0 },
+                    { x: 0, y: 1, hole: true, paths: ["E", "W"] },
+                    { x: 0, y: 2 }
+                ]
+            },
+            {
+                id: "multipath-weave-6",
+                name: "뒤엉킨 경로 조각 6",
+                color: "#00a6a6",
+                cells: [
+                    { x: 0, y: 0, paths: ["E", "W"] },
+                    { x: 1, y: 0, crossing: true, crossingAxis: "horizontal", paths: ["E", "W", "S", "N"] },
+                    { x: 2, y: 0, paths: ["S", "W"] },
+                    { x: 2, y: 1, hole: true, paths: ["S", "N"] }
+                ]
+            },
+            {
+                id: "multipath-weave-7",
+                name: "뒤엉킨 경로 조각 7",
+                color: "#eb5757",
+                cells: [
+                    { x: 0, y: 0, paths: ["E", "N"] },
+                    { x: 1, y: 0, crossing: true, crossingAxis: "vertical", paths: ["N", "S", "E", "W"] },
+                    { x: 0, y: 1, hole: true },
+                    { x: 1, y: 1, paths: ["N", "S"] }
+                ]
+            },
+            {
+                id: "multipath-weave-8",
+                name: "뒤엉킨 경로 조각 8",
+                color: "#3454d1",
+                cells: [
+                    { x: 2, y: 0, crossing: true, crossingAxis: "vertical", paths: ["S", "N", "W", "E"] },
+                    { x: 0, y: 1, paths: ["N", "S"] },
+                    { x: 1, y: 1 },
+                    { x: 2, y: 1, paths: ["S", "N"] }
+                ]
+            },
+            {
+                id: "multipath-weave-9",
+                name: "뒤엉킨 경로 조각 9",
+                color: "#f2994a",
+                cells: [
+                    { x: 0, y: 0, paths: ["E", "W"] },
+                    { x: 0, y: 1, hole: true },
+                    { x: 1, y: 1, paths: ["N", "S"] },
+                    { x: 1, y: 2, paths: ["N", "E"] }
+                ]
+            },
+            {
+                id: "multipath-weave-10",
+                name: "뒤엉킨 경로 조각 10",
+                color: "#6fcf97",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 0, y: 1, hole: true },
+                    { x: 1, y: 1, hole: true, paths: ["N", "E"] },
+                    { x: 2, y: 1, paths: ["W", "E"] }
+                ]
+            },
+            {
+                id: "multipath-weave-11",
+                name: "뒤엉킨 경로 조각 11",
+                color: "#bb6bd9",
+                cells: [
+                    { x: 0, y: 0 },
+                    { x: 1, y: 0, paths: ["N", "E"] },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1, hole: true }
+                ]
+            },
+            {
+                id: "multipath-weave-12",
+                name: "뒤엉킨 경로 조각 12",
+                color: "#56ccf2",
+                cells: [
+                    { x: 0, y: 0, crossing: true, crossingAxis: "vertical", paths: ["S", "N", "E", "W"] },
+                    { x: 1, y: 0, hole: true, paths: ["W", "E"] },
+                    { x: 1, y: 1, hole: true, paths: ["W", "E"] },
+                    { x: 1, y: 2 }
+                ]
+            }
+        ]
     }
 ];
 
