@@ -2273,27 +2273,28 @@ const stages = [
         id: "multipath-weave",
         shortName: "4-5",
         label: "4-5단계: 뒤엉킨 길",
-        description: "7x7 판에서 서로 가까이 놓인 세 S와 세 G를 섣불리 짝짓지 말고, 다섯 교차로를 지나 세 경로를 모두 이으세요.",
+        description: "7x7 판에서 두 S의 길을 하나의 G로 합치고, 남은 S의 길은 두 G로 나누어 다섯 교차로를 모두 지나세요.",
         kind: "multipath",
+        pathFlow: "mixed",
         ruleIds: ["peg", "multipath", "multistart", "crossing"],
         boardSize: 7,
         pegs: [
-            { x: 1, y: 6 },
-            { x: 2, y: 2 },
-            { x: 5, y: 2 },
-            { x: 4, y: 1 },
-            { x: 5, y: 4 }
+            { x: 2, y: 3 },
+            { x: 4, y: 4 },
+            { x: 1, y: 3 },
+            { x: 3, y: 0 },
+            { x: 5, y: 6 }
         ],
         endpoints: {
             starts: [
-                { x: 1, y: 0, dir: "N", label: "S" },
-                { x: 6, y: 2, dir: "E", label: "S" },
-                { x: 4, y: 6, dir: "S", label: "S" }
+                { x: 1, y: 0, dir: "N", label: "S", network: "merge" },
+                { x: 6, y: 2, dir: "E", label: "S", network: "merge" },
+                { x: 4, y: 6, dir: "S", label: "S", network: "split" }
             ],
             ends: [
-                { x: 2, y: 0, dir: "N", label: "G" },
-                { x: 6, y: 3, dir: "E", label: "G" },
-                { x: 3, y: 6, dir: "S", label: "G" }
+                { x: 2, y: 0, dir: "N", label: "G", network: "split" },
+                { x: 6, y: 3, dir: "E", label: "G", network: "split" },
+                { x: 3, y: 6, dir: "S", label: "G", network: "merge" }
             ]
         },
         pieces: [
@@ -2304,9 +2305,9 @@ const stages = [
                 cells: [
                     { x: 0, y: 0, hole: true },
                     { x: 1, y: 0, paths: ["S", "N"] },
-                    { x: 2, y: 0, hole: true, paths: ["N", "S"] },
+                    { x: 1, y: 1, crossing: true, crossingAxis: "vertical", paths: ["S", "N", "E", "W"] },
                     { x: 2, y: 1, paths: ["N", "W"] },
-                    { x: 2, y: 2, hole: true }
+                    { x: 2, y: 2 }
                 ]
             },
             {
@@ -2314,10 +2315,10 @@ const stages = [
                 name: "뒤엉킨 경로 조각 2",
                 color: "#2f80ed",
                 cells: [
-                    { x: 0, y: 0, crossing: true, crossingAxis: "horizontal", paths: ["E", "W", "N", "S"] },
-                    { x: 1, y: 0, paths: ["W", "E"] },
-                    { x: 0, y: 1, paths: ["N", "E"] },
-                    { x: 0, y: 2 }
+                    { x: 1, y: 0, hole: true, paths: ["W", "E"] },
+                    { x: 0, y: 1, hole: true, paths: ["N", "E"] },
+                    { x: 1, y: 1, paths: ["W", "E"] },
+                    { x: 1, y: 2, hole: true }
                 ]
             },
             {
@@ -2325,10 +2326,10 @@ const stages = [
                 name: "뒤엉킨 경로 조각 3",
                 color: "#27ae60",
                 cells: [
-                    { x: 0, y: 0, hole: true, paths: ["S", "N"] },
-                    { x: 1, y: 0, hole: true },
-                    { x: 2, y: 0 },
-                    { x: 2, y: 1, hole: true }
+                    { x: 1, y: 0 },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1, paths: ["S", "E"] },
+                    { x: 1, y: 2, crossing: true, crossingAxis: "horizontal", paths: ["E", "W", "S", "N"] }
                 ]
             },
             {
@@ -2336,10 +2337,10 @@ const stages = [
                 name: "뒤엉킨 경로 조각 4",
                 color: "#f2c94c",
                 cells: [
-                    { x: 0, y: 0 },
+                    { x: 0, y: 0, hole: true },
                     { x: 0, y: 1, hole: true },
-                    { x: 1, y: 1 },
-                    { x: 2, y: 1, hole: true, paths: ["N", "S"] }
+                    { x: 1, y: 1, paths: ["S", "E"] },
+                    { x: 2, y: 1, crossing: true, crossingAxis: "vertical", paths: ["N", "S", "W", "E"] }
                 ]
             },
             {
@@ -2347,9 +2348,9 @@ const stages = [
                 name: "뒤엉킨 경로 조각 5",
                 color: "#9b51e0",
                 cells: [
-                    { x: 0, y: 0, hole: true, paths: ["N", "W"] },
-                    { x: 1, y: 0 },
-                    { x: 0, y: 1, hole: true, paths: ["E", "W"] },
+                    { x: 0, y: 0, paths: ["E", "W"] },
+                    { x: 1, y: 0, paths: ["S", "W"] },
+                    { x: 0, y: 1, paths: ["E", "W"] },
                     { x: 0, y: 2 }
                 ]
             },
@@ -2358,10 +2359,10 @@ const stages = [
                 name: "뒤엉킨 경로 조각 6",
                 color: "#00a6a6",
                 cells: [
-                    { x: 0, y: 0, paths: ["E", "W"] },
-                    { x: 1, y: 0, crossing: true, crossingAxis: "horizontal", paths: ["E", "W", "S", "N"] },
-                    { x: 2, y: 0, paths: ["S", "W"] },
-                    { x: 2, y: 1, hole: true, paths: ["S", "N"] }
+                    { x: 1, y: 0, paths: ["W", "E"] },
+                    { x: 2, y: 0, hole: true, paths: ["W", "E"] },
+                    { x: 0, y: 1, crossing: true, crossingAxis: "horizontal", paths: ["E", "W", "S", "N"] },
+                    { x: 1, y: 1, hole: true, paths: ["E", "W"] }
                 ]
             },
             {
@@ -2369,10 +2370,10 @@ const stages = [
                 name: "뒤엉킨 경로 조각 7",
                 color: "#eb5757",
                 cells: [
-                    { x: 0, y: 0, paths: ["E", "N"] },
-                    { x: 1, y: 0, crossing: true, crossingAxis: "vertical", paths: ["N", "S", "E", "W"] },
-                    { x: 0, y: 1, hole: true },
-                    { x: 1, y: 1, paths: ["N", "S"] }
+                    { x: 0, y: 0, paths: ["E", "S"] },
+                    { x: 0, y: 1, hole: true, paths: ["N", "S"] },
+                    { x: 1, y: 1, hole: true, paths: ["S", "N"] },
+                    { x: 0, y: 2, crossing: true, crossingAxis: "vertical", paths: ["N", "S", "E", "W"] }
                 ]
             },
             {
@@ -2380,10 +2381,10 @@ const stages = [
                 name: "뒤엉킨 경로 조각 8",
                 color: "#3454d1",
                 cells: [
-                    { x: 2, y: 0, crossing: true, crossingAxis: "vertical", paths: ["S", "N", "W", "E"] },
-                    { x: 0, y: 1, paths: ["N", "S"] },
-                    { x: 1, y: 1 },
-                    { x: 2, y: 1, paths: ["S", "N"] }
+                    { x: 0, y: 0, hole: true },
+                    { x: 1, y: 0, hole: true, paths: ["N", "S"] },
+                    { x: 2, y: 0, paths: ["S", "N"] },
+                    { x: 2, y: 1, paths: ["W", "N"] }
                 ]
             },
             {
@@ -2391,10 +2392,10 @@ const stages = [
                 name: "뒤엉킨 경로 조각 9",
                 color: "#f2994a",
                 cells: [
-                    { x: 0, y: 0, paths: ["E", "W"] },
-                    { x: 0, y: 1, hole: true },
-                    { x: 1, y: 1, paths: ["N", "S"] },
-                    { x: 1, y: 2, paths: ["N", "E"] }
+                    { x: 0, y: 0 },
+                    { x: 1, y: 0 },
+                    { x: 1, y: 1 },
+                    { x: 1, y: 2, paths: ["W", "S"] }
                 ]
             },
             {
@@ -2402,10 +2403,10 @@ const stages = [
                 name: "뒤엉킨 경로 조각 10",
                 color: "#6fcf97",
                 cells: [
-                    { x: 0, y: 0 },
-                    { x: 0, y: 1, hole: true },
-                    { x: 1, y: 1, hole: true, paths: ["N", "E"] },
-                    { x: 2, y: 1, paths: ["W", "E"] }
+                    { x: 1, y: 0, hole: true, paths: ["W", "N", "E"] },
+                    { x: 1, y: 1 },
+                    { x: 0, y: 2 },
+                    { x: 1, y: 2, hole: true }
                 ]
             },
             {
@@ -2413,10 +2414,10 @@ const stages = [
                 name: "뒤엉킨 경로 조각 11",
                 color: "#bb6bd9",
                 cells: [
-                    { x: 0, y: 0 },
-                    { x: 1, y: 0, paths: ["N", "E"] },
-                    { x: 0, y: 1 },
-                    { x: 1, y: 1, hole: true }
+                    { x: 1, y: 0, paths: ["W", "N", "S"] },
+                    { x: 2, y: 0, hole: true, paths: ["S", "N"] },
+                    { x: 0, y: 1, hole: true },
+                    { x: 1, y: 1, paths: ["N", "S"] }
                 ]
             },
             {
@@ -2424,10 +2425,10 @@ const stages = [
                 name: "뒤엉킨 경로 조각 12",
                 color: "#56ccf2",
                 cells: [
-                    { x: 0, y: 0, crossing: true, crossingAxis: "vertical", paths: ["S", "N", "E", "W"] },
-                    { x: 1, y: 0, hole: true, paths: ["W", "E"] },
-                    { x: 1, y: 1, hole: true, paths: ["W", "E"] },
-                    { x: 1, y: 2 }
+                    { x: 1, y: 0 },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 1, hole: true },
+                    { x: 1, y: 2, hole: true, paths: ["W", "E"] }
                 ]
             }
         ]
@@ -3580,7 +3581,9 @@ function isMultiplePathSolved(stage, boardCells) {
     const starts = getStartEndpoints(stage);
     const ends = getEndEndpoints(stage);
     const mergesTowardGoals = stage.pathFlow === "merge";
-    const expectedComponentCount = mergesTowardGoals ? ends.length : starts.length;
+    const mixesSplitAndMerge = stage.pathFlow === "mixed";
+    const pathNetworks = new Set([...starts, ...ends].map((endpoint) => endpoint.network).filter(Boolean));
+    const expectedComponentCount = mixesSplitAndMerge ? pathNetworks.size : mergesTowardGoals ? ends.length : starts.length;
 
     if (starts.some((start) => !boardCells[start.y][start.x]?.paths.includes(start.dir)) || ends.some((end) => !boardCells[end.y][end.x]?.paths.includes(end.dir))) {
         return false;
@@ -3650,11 +3653,19 @@ function isMultiplePathSolved(stage, boardCells) {
             const cell = boardCells[end.y][end.x];
             return component.has(getPathNodeKey(end.x, end.y, getPathChannel(cell, end.dir)));
         });
-        const hasWrongDestination = componentStarts.some((candidate) => candidate.network
-            && componentEnds.some((end) => end.network !== candidate.network));
-        const hasInvalidEndpointBalance = mergesTowardGoals
-            ? componentStarts.length === 0 || componentEnds.length !== 1
-            : componentStarts.length !== 1 || componentEnds.length === 0;
+        const componentNetworks = new Set([...componentStarts, ...componentEnds].map((endpoint) => endpoint.network).filter(Boolean));
+        const componentNetwork = componentNetworks.values().next().value;
+        const expectedNetworkStarts = mixesSplitAndMerge ? starts.filter((start) => start.network === componentNetwork) : [];
+        const expectedNetworkEnds = mixesSplitAndMerge ? ends.filter((end) => end.network === componentNetwork) : [];
+        const hasWrongDestination = mixesSplitAndMerge
+            ? componentNetworks.size !== 1
+            : componentStarts.some((candidate) => candidate.network
+                && componentEnds.some((end) => end.network !== candidate.network));
+        const hasInvalidEndpointBalance = mixesSplitAndMerge
+            ? componentStarts.length !== expectedNetworkStarts.length || componentEnds.length !== expectedNetworkEnds.length
+            : mergesTowardGoals
+                ? componentStarts.length === 0 || componentEnds.length !== 1
+                : componentStarts.length !== 1 || componentEnds.length === 0;
 
         if (hasInvalidEndpointBalance || hasWrongDestination) {
             return false;
