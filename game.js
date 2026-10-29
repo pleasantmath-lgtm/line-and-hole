@@ -2432,6 +2432,271 @@ const stages = [
                 ]
             }
         ]
+    },
+    {
+        id: "multipath-boss",
+        shortName: "4-X",
+        label: "4-X단계: 최후의 교차",
+        description: "8x8 판에서 세 S의 길을 하나의 G로 합치고, 남은 S의 길을 세 G로 나누세요. 색 peg, L/R, 자석과 자기력선도 모두 맞아야 해요.",
+        kind: "multipath",
+        pathFlow: "mixed",
+        pathGroups: [
+            { starts: 3, ends: 1 },
+            { starts: 1, ends: 3 }
+        ],
+        fixedColors: true,
+        ruleIds: ["peg", "multipath", "multistart", "crossing", "turn", "color", "magnet", "field"],
+        boardSize: 8,
+        pegs: [
+            { x: 3, y: 2, colorKey: "red", color: "#e15f41" },
+            { x: 5, y: 5, colorKey: "blue", color: "#2f80ed" },
+            { x: 2, y: 4, colorKey: "yellow", color: "#f2c94c" },
+            { x: 2, y: 1, colorKey: "red", color: "#e15f41" }
+        ],
+        fieldLines: [
+            { x: 4, y: 2, dir: "N" },
+            { x: 4, y: 6, dir: "S" }
+        ],
+        endpoints: {
+            starts: [
+                { x: 1, y: 0, dir: "N", label: "S" },
+                { x: 7, y: 2, dir: "E", label: "S" },
+                { x: 0, y: 5, dir: "W", label: "S" },
+                { x: 4, y: 7, dir: "S", label: "S" }
+            ],
+            ends: [
+                { x: 3, y: 7, dir: "S", label: "G" },
+                { x: 2, y: 0, dir: "N", label: "G" },
+                { x: 7, y: 3, dir: "E", label: "G" },
+                { x: 0, y: 6, dir: "W", label: "G" }
+            ]
+        },
+        pieces: [
+            {
+                id: "multipath-boss-1",
+                name: "종합 경로 조각 1",
+                color: "#2f80ed",
+                colorKey: "blue",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 1, y: 0, magnet: "S", paths: ["S", "N"] },
+                    { x: 2, y: 0, magnet: "N", paths: ["S", "N"] }
+                ]
+            },
+            {
+                id: "multipath-boss-2",
+                name: "종합 경로 조각 2",
+                color: "#e15f41",
+                colorKey: "red",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 0, y: 1, hole: true },
+                    { x: 1, y: 1, magnet: "S", paths: ["S", "E"] }
+                ]
+            },
+            {
+                id: "multipath-boss-3",
+                name: "종합 경로 조각 3",
+                color: "#2f80ed",
+                colorKey: "blue",
+                cells: [
+                    { x: 0, y: 0, magnet: "N" },
+                    { x: 1, y: 0, magnet: "S" },
+                    { x: 1, y: 1, hole: true, paths: ["W", "S"] }
+                ]
+            },
+            {
+                id: "multipath-boss-4",
+                name: "종합 경로 조각 4",
+                color: "#e15f41",
+                colorKey: "red",
+                cells: [
+                    { x: 0, y: 0, hole: true },
+                    { x: 1, y: 0, hole: true },
+                    { x: 0, y: 1, hole: true },
+                    { x: 0, y: 2, magnet: "N", paths: ["E", "W"] }
+                ]
+            },
+            {
+                id: "multipath-boss-5",
+                name: "종합 경로 조각 5",
+                color: "#e15f41",
+                colorKey: "red",
+                cells: [
+                    { x: 0, y: 0, paths: ["S", "E"] },
+                    { x: 1, y: 0, magnet: "N", crossing: true, paths: ["N", "S", "W", "E"], crossingAxis: "vertical" },
+                    { x: 2, y: 0, hole: true, turn: "L", paths: ["W", "N"] },
+                    { x: 2, y: 1, hole: true }
+                ]
+            },
+            {
+                id: "multipath-boss-6",
+                name: "종합 경로 조각 6",
+                color: "#e15f41",
+                colorKey: "red",
+                cells: [
+                    { x: 1, y: 0, magnet: "N" },
+                    { x: 1, y: 1, hole: true, paths: ["W", "E"] },
+                    { x: 0, y: 2, hole: true, paths: ["W", "E"] },
+                    { x: 1, y: 2, hole: true, paths: ["W", "E"] }
+                ]
+            },
+            {
+                id: "multipath-boss-7",
+                name: "종합 경로 조각 7",
+                color: "#f2c94c",
+                colorKey: "yellow",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["S", "N"] },
+                    { x: 0, y: 1, hole: true, paths: ["S", "N"] },
+                    { x: 0, y: 2, hole: true, paths: ["E", "N"] }
+                ]
+            },
+            {
+                id: "multipath-boss-8",
+                name: "종합 경로 조각 8",
+                color: "#2f80ed",
+                colorKey: "blue",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["N", "S"] },
+                    { x: 0, y: 1, magnet: "N", paths: ["N", "S"] },
+                    { x: 1, y: 1 }
+                ]
+            },
+            {
+                id: "multipath-boss-9",
+                name: "종합 경로 조각 9",
+                color: "#e15f41",
+                colorKey: "red",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["E", "S"] },
+                    { x: 0, y: 1, magnet: "N", paths: ["N", "S"] },
+                    { x: 1, y: 1, hole: true, paths: ["S", "N"] }
+                ]
+            },
+            {
+                id: "multipath-boss-10",
+                name: "종합 경로 조각 10",
+                color: "#f2c94c",
+                colorKey: "yellow",
+                cells: [
+                    { x: 0, y: 0, magnet: "N", crossing: true, paths: ["E", "W", "S", "N"], crossingAxis: "horizontal" },
+                    { x: 1, y: 0, magnet: "S", crossing: true, paths: ["E", "W", "N", "S"], crossingAxis: "vertical" },
+                    { x: 1, y: 1, hole: true, paths: ["N", "E", "S"] }
+                ]
+            },
+            {
+                id: "multipath-boss-11",
+                name: "종합 경로 조각 11",
+                color: "#2f80ed",
+                colorKey: "blue",
+                cells: [
+                    { x: 1, y: 0, magnet: "S", crossing: true, paths: ["N", "S", "E", "W"], crossingAxis: "horizontal" },
+                    { x: 0, y: 1, hole: true, paths: ["E", "W"] },
+                    { x: 1, y: 1, hole: true, paths: ["N", "E", "W"] }
+                ]
+            },
+            {
+                id: "multipath-boss-12",
+                name: "종합 경로 조각 12",
+                color: "#f2c94c",
+                colorKey: "yellow",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["E", "W"] },
+                    { x: 1, y: 0, magnet: "S", crossing: true, paths: ["N", "S", "E", "W"], crossingAxis: "vertical" },
+                    { x: 1, y: 1, paths: ["W", "S", "N"] }
+                ]
+            },
+            {
+                id: "multipath-boss-13",
+                name: "종합 경로 조각 13",
+                color: "#e15f41",
+                colorKey: "red",
+                cells: [
+                    { x: 0, y: 0, magnet: "N", paths: ["S", "W", "N"] },
+                    { x: 0, y: 1, hole: true, paths: ["S", "N"] },
+                    { x: 0, y: 2, magnet: "N", crossing: true, paths: ["S", "N", "E", "W"], crossingAxis: "horizontal" }
+                ]
+            },
+            {
+                id: "multipath-boss-14",
+                name: "종합 경로 조각 14",
+                color: "#e15f41",
+                colorKey: "red",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["N", "S"] },
+                    { x: 1, y: 0, hole: true },
+                    { x: 2, y: 0, hole: true }
+                ]
+            },
+            {
+                id: "multipath-boss-15",
+                name: "종합 경로 조각 15",
+                color: "#2f80ed",
+                colorKey: "blue",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["W", "E"] },
+                    { x: 0, y: 1, magnet: "N", paths: ["E", "S"] },
+                    { x: 1, y: 1, crossing: true, paths: ["N", "S", "E", "W"], crossingAxis: "vertical" }
+                ]
+            },
+            {
+                id: "multipath-boss-16",
+                name: "종합 경로 조각 16",
+                color: "#2f80ed",
+                colorKey: "blue",
+                cells: [
+                    { x: 0, y: 0, hole: true, paths: ["N", "S"] },
+                    { x: 1, y: 0, hole: true },
+                    { x: 2, y: 0, hole: true }
+                ]
+            },
+            {
+                id: "multipath-boss-17",
+                name: "종합 경로 조각 17",
+                color: "#f2c94c",
+                colorKey: "yellow",
+                cells: [
+                    { x: 0, y: 0, magnet: "N", paths: ["S", "W"] },
+                    { x: 1, y: 0, magnet: "S" },
+                    { x: 0, y: 1, paths: ["E", "N"] }
+                ]
+            },
+            {
+                id: "multipath-boss-18",
+                name: "종합 경로 조각 18",
+                color: "#2f80ed",
+                colorKey: "blue",
+                cells: [
+                    { x: 0, y: 0, hole: true, turn: "R", paths: ["N", "W"] },
+                    { x: 1, y: 0 },
+                    { x: 2, y: 0, hole: true },
+                    { x: 2, y: 1, hole: true }
+                ]
+            },
+            {
+                id: "multipath-boss-19",
+                name: "종합 경로 조각 19",
+                color: "#f2c94c",
+                colorKey: "yellow",
+                cells: [
+                    { x: 0, y: 0, magnet: "N", paths: ["E", "W"] },
+                    { x: 1, y: 0, hole: true, paths: ["N", "W"] },
+                    { x: 2, y: 0, magnet: "N", paths: ["N", "S"] }
+                ]
+            },
+            {
+                id: "multipath-boss-20",
+                name: "종합 경로 조각 20",
+                color: "#f2c94c",
+                colorKey: "yellow",
+                cells: [
+                    { x: 0, y: 0, magnet: "S", paths: ["N", "S"] },
+                    { x: 1, y: 0, magnet: "N" },
+                    { x: 2, y: 0, magnet: "S" }
+                ]
+            }
+        ]
     }
 ];
 
@@ -2452,6 +2717,7 @@ function startGame(stageIndex = currentStageIndex) {
     const stage = getStage();
     board.style.setProperty("--board-width", getBoardWidth(stage));
     board.style.setProperty("--board-height", getBoardHeight(stage));
+    boardScene.closest(".app").classList.toggle("large-puzzle", getBoardCellCount(stage) >= 64 && stage.pieces.length >= 20);
     pieces = stage.pieces.map(copyPiece);
     if (stage.fixedColors) {
         shuffleInPlace(pieces);
@@ -3298,7 +3564,7 @@ function countSolutions() {
                         pieceColorKey: piece.colorKey
                     }));
 
-                    if (placement.some((cell) => !isInsideBoard(cell.x, cell.y))) {
+                    if (!canSolverPlace(placement, boardCells)) {
                         continue;
                     }
 
@@ -3582,8 +3848,9 @@ function isMultiplePathSolved(stage, boardCells) {
     const ends = getEndEndpoints(stage);
     const mergesTowardGoals = stage.pathFlow === "merge";
     const mixesSplitAndMerge = stage.pathFlow === "mixed";
+    const remainingPathGroups = stage.pathGroups?.map((group) => ({ ...group }));
     const pathNetworks = new Set([...starts, ...ends].map((endpoint) => endpoint.network).filter(Boolean));
-    const expectedComponentCount = mixesSplitAndMerge ? pathNetworks.size : mergesTowardGoals ? ends.length : starts.length;
+    const expectedComponentCount = remainingPathGroups?.length ?? (mixesSplitAndMerge ? pathNetworks.size : mergesTowardGoals ? ends.length : starts.length);
 
     if (starts.some((start) => !boardCells[start.y][start.x]?.paths.includes(start.dir)) || ends.some((end) => !boardCells[end.y][end.x]?.paths.includes(end.dir))) {
         return false;
@@ -3657,19 +3924,21 @@ function isMultiplePathSolved(stage, boardCells) {
         const componentNetwork = componentNetworks.values().next().value;
         const expectedNetworkStarts = mixesSplitAndMerge ? starts.filter((start) => start.network === componentNetwork) : [];
         const expectedNetworkEnds = mixesSplitAndMerge ? ends.filter((end) => end.network === componentNetwork) : [];
-        const hasWrongDestination = mixesSplitAndMerge
+        const matchingGroupIndex = remainingPathGroups?.findIndex((group) => group.starts === componentStarts.length && group.ends === componentEnds.length);
+        const hasWrongDestination = remainingPathGroups ? false : mixesSplitAndMerge
             ? componentNetworks.size !== 1
             : componentStarts.some((candidate) => candidate.network
                 && componentEnds.some((end) => end.network !== candidate.network));
-        const hasInvalidEndpointBalance = mixesSplitAndMerge
+        const hasInvalidEndpointBalance = remainingPathGroups ? matchingGroupIndex === -1 : mixesSplitAndMerge
             ? componentStarts.length !== expectedNetworkStarts.length || componentEnds.length !== expectedNetworkEnds.length
             : mergesTowardGoals
                 ? componentStarts.length === 0 || componentEnds.length !== 1
                 : componentStarts.length !== 1 || componentEnds.length === 0;
 
-        if (hasInvalidEndpointBalance || hasWrongDestination) {
+        if (hasInvalidEndpointBalance || hasWrongDestination || !areMultiplePathTurnsValid(stage, boardCells, componentStarts, componentEnds)) {
             return false;
         }
+        remainingPathGroups?.splice(matchingGroupIndex, 1);
 
         component.forEach((key) => visited.add(key));
         componentStarts.forEach((candidate) => reachedStartKeys.add(`${candidate.x},${candidate.y},${candidate.dir}`));
@@ -3692,6 +3961,52 @@ function isMultiplePathSolved(stage, boardCells) {
         && reachedEndKeys.size === ends.length
         && componentCount === expectedComponentCount
         && internalConnectionCount === pathNodes.length - componentCount;
+}
+
+function areMultiplePathTurnsValid(stage, boardCells, starts, ends) {
+    if (!boardCells.flat().some((cell) => cell.turn)) {
+        return true;
+    }
+    const rootedAtStart = starts.length === 1;
+    const root = rootedAtStart ? starts[0] : ends.length === 1 ? ends[0] : null;
+    if (!root) {
+        return boardCells.flat().every((cell) => !cell.turn);
+    }
+
+    const towardRoot = new Map();
+    const rootCell = boardCells[root.y][root.x];
+    const rootChannel = getPathChannel(rootCell, root.dir);
+    towardRoot.set(getPathNodeKey(root.x, root.y, rootChannel), root.dir);
+    const pending = [{ x: root.x, y: root.y, channel: rootChannel }];
+
+    // A tree has one direction toward its single source or single destination.
+    while (pending.length > 0) {
+        const current = pending.pop();
+        const cell = boardCells[current.y][current.x];
+        const rootDir = towardRoot.get(getPathNodeKey(current.x, current.y, current.channel));
+        if (cell.turn) {
+            const awayDir = cell.paths.find((dir) => dir !== rootDir);
+            const incoming = rootedAtStart ? rootDir : awayDir;
+            const outgoing = rootedAtStart ? awayDir : rootDir;
+            if (cell.crossing || cell.paths.length !== 2 || !isTurnConstraintSatisfied(cell, incoming, outgoing)) {
+                return false;
+            }
+        }
+
+        for (const dir of getPathNodeDirections(cell, current.channel)) {
+            if (dir === rootDir || [...starts, ...ends].some((endpoint) => endpoint.x === current.x && endpoint.y === current.y && endpoint.dir === dir)) {
+                continue;
+            }
+            const neighbor = getNeighbor(current.x, current.y, dir);
+            const channel = getPathChannel(boardCells[neighbor.y][neighbor.x], oppositeDir(dir));
+            const key = getPathNodeKey(neighbor.x, neighbor.y, channel);
+            if (!towardRoot.has(key)) {
+                towardRoot.set(key, oppositeDir(dir));
+                pending.push({ ...neighbor, channel });
+            }
+        }
+    }
+    return true;
 }
 
 function getPathChannel(cell, dir) {
@@ -3929,15 +4244,15 @@ function hasMultiplePathRules(stage) {
 }
 
 function hasColorPegRules(stage) {
-    return stage.kind === "color" || stage.kind === "boss";
+    return stage.ruleIds?.includes("color") || stage.kind === "color" || stage.kind === "boss";
 }
 
 function hasMagnetRules(stage) {
-    return stage.kind === "magnet" || stage.kind === "field" || stage.kind === "boss";
+    return stage.ruleIds?.includes("magnet") || stage.kind === "magnet" || stage.kind === "field" || stage.kind === "boss";
 }
 
 function hasFieldRules(stage) {
-    return stage.kind === "field" || stage.kind === "boss";
+    return stage.ruleIds?.includes("field") || stage.kind === "field" || stage.kind === "boss";
 }
 
 function isPieceColorMatch(pieceId, colorKey) {
