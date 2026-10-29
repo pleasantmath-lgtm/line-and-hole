@@ -2475,46 +2475,45 @@ const stages = [
             {
                 id: "multipath-boss-1",
                 name: "종합 경로 조각 1",
-                color: "#2f80ed",
-                colorKey: "blue",
+                color: "#e15f41",
+                colorKey: "red",
                 cells: [
-                    { x: 0, y: 0, hole: true },
-                    { x: 1, y: 0, magnet: "S", paths: ["S", "N"] },
-                    { x: 2, y: 0, magnet: "N", paths: ["S", "N"] }
+                    { x: 0, y: 0, hole: true, paths: ["N", "S"] },
+                    { x: 1, y: 0, hole: true },
+                    { x: 2, y: 0, hole: true }
                 ]
             },
             {
                 id: "multipath-boss-2",
                 name: "종합 경로 조각 2",
-                color: "#e15f41",
-                colorKey: "red",
+                color: "#2f80ed",
+                colorKey: "blue",
                 cells: [
-                    { x: 0, y: 0, hole: true },
-                    { x: 0, y: 1, hole: true },
-                    { x: 1, y: 1, magnet: "S", paths: ["S", "E"] }
+                    { x: 0, y: 0, hole: true, paths: ["N", "S"] },
+                    { x: 1, y: 0, hole: true },
+                    { x: 2, y: 0, hole: true }
                 ]
             },
             {
                 id: "multipath-boss-3",
                 name: "종합 경로 조각 3",
-                color: "#2f80ed",
-                colorKey: "blue",
+                color: "#f2c94c",
+                colorKey: "yellow",
                 cells: [
-                    { x: 0, y: 0, magnet: "N" },
-                    { x: 1, y: 0, magnet: "S" },
-                    { x: 1, y: 1, hole: true, paths: ["W", "S"] }
+                    { x: 0, y: 0, magnet: "S", paths: ["N", "S"] },
+                    { x: 1, y: 0, magnet: "N" },
+                    { x: 2, y: 0, magnet: "S" }
                 ]
             },
             {
                 id: "multipath-boss-4",
                 name: "종합 경로 조각 4",
-                color: "#e15f41",
-                colorKey: "red",
+                color: "#2f80ed",
+                colorKey: "blue",
                 cells: [
                     { x: 0, y: 0, hole: true },
-                    { x: 1, y: 0, hole: true },
-                    { x: 0, y: 1, hole: true },
-                    { x: 0, y: 2, magnet: "N", paths: ["E", "W"] }
+                    { x: 0, y: 1, paths: ["S", "E"] },
+                    { x: 0, y: 2, hole: true, paths: ["S", "N"] }
                 ]
             },
             {
@@ -2523,10 +2522,9 @@ const stages = [
                 color: "#e15f41",
                 colorKey: "red",
                 cells: [
-                    { x: 0, y: 0, paths: ["S", "E"] },
-                    { x: 1, y: 0, magnet: "N", crossing: true, paths: ["N", "S", "W", "E"], crossingAxis: "vertical" },
-                    { x: 2, y: 0, hole: true, turn: "L", paths: ["W", "N"] },
-                    { x: 2, y: 1, hole: true }
+                    { x: 0, y: 0, magnet: "S", paths: ["S", "N"] },
+                    { x: 1, y: 0, magnet: "N", paths: ["S", "N"] },
+                    { x: 1, y: 1, hole: true, turn: "L", paths: ["W", "N"] }
                 ]
             },
             {
@@ -2535,10 +2533,11 @@ const stages = [
                 color: "#e15f41",
                 colorKey: "red",
                 cells: [
-                    { x: 1, y: 0, magnet: "N" },
-                    { x: 1, y: 1, hole: true, paths: ["W", "E"] },
-                    { x: 0, y: 2, hole: true, paths: ["W", "E"] },
-                    { x: 1, y: 2, hole: true, paths: ["W", "E"] }
+                    { x: 0, y: 0, hole: true },
+                    { x: 0, y: 1, hole: true },
+                    { x: 0, y: 2, hole: true, paths: ["E", "S"] },
+                    { x: 1, y: 2, magnet: "N", crossing: true, crossingAxis: "horizontal", paths: ["E", "W", "S", "N"] },
+                    { x: 0, y: 3, magnet: "N", paths: ["N", "S"] }
                 ]
             },
             {
@@ -2547,20 +2546,23 @@ const stages = [
                 color: "#f2c94c",
                 colorKey: "yellow",
                 cells: [
-                    { x: 0, y: 0, hole: true, paths: ["S", "N"] },
-                    { x: 0, y: 1, hole: true, paths: ["S", "N"] },
-                    { x: 0, y: 2, hole: true, paths: ["E", "N"] }
+                    { x: 0, y: 0, magnet: "N" },
+                    { x: 1, y: 0, magnet: "S" },
+                    { x: 0, y: 1, magnet: "S", paths: ["S", "E"] },
+                    { x: 1, y: 1, hole: true, paths: ["W", "S"] }
                 ]
             },
             {
                 id: "multipath-boss-8",
                 name: "종합 경로 조각 8",
-                color: "#2f80ed",
-                colorKey: "blue",
+                color: "#f2c94c",
+                colorKey: "yellow",
                 cells: [
-                    { x: 0, y: 0, hole: true, paths: ["N", "S"] },
-                    { x: 0, y: 1, magnet: "N", paths: ["N", "S"] },
-                    { x: 1, y: 1 }
+                    { x: 1, y: 0, hole: true },
+                    { x: 2, y: 0, hole: true },
+                    { x: 1, y: 1, hole: true },
+                    { x: 0, y: 2, magnet: "S", crossing: true, crossingAxis: "vertical", paths: ["E", "W", "N", "S"] },
+                    { x: 1, y: 2, magnet: "N", paths: ["E", "W"] }
                 ]
             },
             {
@@ -2569,9 +2571,10 @@ const stages = [
                 color: "#e15f41",
                 colorKey: "red",
                 cells: [
-                    { x: 0, y: 0, hole: true, paths: ["E", "S"] },
-                    { x: 0, y: 1, magnet: "N", paths: ["N", "S"] },
-                    { x: 1, y: 1, hole: true, paths: ["S", "N"] }
+                    { x: 0, y: 0, magnet: "N", crossing: true, crossingAxis: "vertical", paths: ["N", "S", "W", "E"] },
+                    { x: 0, y: 1, hole: true, paths: ["N", "S"] },
+                    { x: 0, y: 2, magnet: "N", paths: ["N", "S"] },
+                    { x: 0, y: 3, magnet: "S", crossing: true, crossingAxis: "horizontal", paths: ["N", "S", "E", "W"] }
                 ]
             },
             {
@@ -2580,31 +2583,36 @@ const stages = [
                 color: "#f2c94c",
                 colorKey: "yellow",
                 cells: [
-                    { x: 0, y: 0, magnet: "N", crossing: true, paths: ["E", "W", "S", "N"], crossingAxis: "horizontal" },
-                    { x: 1, y: 0, magnet: "S", crossing: true, paths: ["E", "W", "N", "S"], crossingAxis: "vertical" },
-                    { x: 1, y: 1, hole: true, paths: ["N", "E", "S"] }
+                    { x: 2, y: 0, magnet: "N" },
+                    { x: 2, y: 1, hole: true, paths: ["W", "E"] },
+                    { x: 0, y: 2, hole: true, paths: ["N", "E", "S"] },
+                    { x: 1, y: 2, hole: true, paths: ["W", "E"] },
+                    { x: 2, y: 2, hole: true, paths: ["W", "E"] }
                 ]
             },
             {
                 id: "multipath-boss-11",
                 name: "종합 경로 조각 11",
-                color: "#2f80ed",
-                colorKey: "blue",
+                color: "#f2c94c",
+                colorKey: "yellow",
                 cells: [
-                    { x: 1, y: 0, magnet: "S", crossing: true, paths: ["N", "S", "E", "W"], crossingAxis: "horizontal" },
-                    { x: 0, y: 1, hole: true, paths: ["E", "W"] },
-                    { x: 1, y: 1, hole: true, paths: ["N", "E", "W"] }
+                    { x: 0, y: 0, hole: true },
+                    { x: 0, y: 1 },
+                    { x: 0, y: 2, hole: true, paths: ["E", "W"] },
+                    { x: 0, y: 3, hole: true, paths: ["W", "E"] },
+                    { x: 1, y: 3, paths: ["W", "S", "N"] }
                 ]
             },
             {
                 id: "multipath-boss-12",
                 name: "종합 경로 조각 12",
-                color: "#f2c94c",
-                colorKey: "yellow",
+                color: "#2f80ed",
+                colorKey: "blue",
                 cells: [
-                    { x: 0, y: 0, hole: true, paths: ["E", "W"] },
-                    { x: 1, y: 0, magnet: "S", crossing: true, paths: ["N", "S", "E", "W"], crossingAxis: "vertical" },
-                    { x: 1, y: 1, paths: ["W", "S", "N"] }
+                    { x: 0, y: 0, hole: true, paths: ["S", "N"] },
+                    { x: 0, y: 1, hole: true, paths: ["E", "N"] },
+                    { x: 0, y: 2, hole: true, paths: ["E", "W"] },
+                    { x: 0, y: 3, magnet: "N", paths: ["S", "W"] }
                 ]
             },
             {
@@ -2613,9 +2621,10 @@ const stages = [
                 color: "#e15f41",
                 colorKey: "red",
                 cells: [
-                    { x: 0, y: 0, magnet: "N", paths: ["S", "W", "N"] },
-                    { x: 0, y: 1, hole: true, paths: ["S", "N"] },
-                    { x: 0, y: 2, magnet: "N", crossing: true, paths: ["S", "N", "E", "W"], crossingAxis: "horizontal" }
+                    { x: 1, y: 0, hole: true, paths: ["S", "N"] },
+                    { x: 0, y: 1, magnet: "S", crossing: true, crossingAxis: "vertical", paths: ["N", "S", "E", "W"] },
+                    { x: 1, y: 1, magnet: "N", paths: ["S", "W", "N"] },
+                    { x: 1, y: 2, hole: true, paths: ["S", "N"] }
                 ]
             },
             {
@@ -2624,49 +2633,18 @@ const stages = [
                 color: "#e15f41",
                 colorKey: "red",
                 cells: [
-                    { x: 0, y: 0, hole: true, paths: ["N", "S"] },
-                    { x: 1, y: 0, hole: true },
-                    { x: 2, y: 0, hole: true }
+                    { x: 0, y: 0, hole: true, paths: ["N", "E", "W"] },
+                    { x: 0, y: 1, magnet: "S" },
+                    { x: 1, y: 1, magnet: "N", paths: ["E", "S"] },
+                    { x: 2, y: 1, crossing: true, crossingAxis: "vertical", paths: ["N", "S", "E", "W"] },
+                    { x: 3, y: 1, magnet: "N", crossing: true, crossingAxis: "horizontal", paths: ["S", "N", "E", "W"] }
                 ]
             },
             {
                 id: "multipath-boss-15",
                 name: "종합 경로 조각 15",
-                color: "#2f80ed",
-                colorKey: "blue",
-                cells: [
-                    { x: 0, y: 0, hole: true, paths: ["W", "E"] },
-                    { x: 0, y: 1, magnet: "N", paths: ["E", "S"] },
-                    { x: 1, y: 1, crossing: true, paths: ["N", "S", "E", "W"], crossingAxis: "vertical" }
-                ]
-            },
-            {
-                id: "multipath-boss-16",
-                name: "종합 경로 조각 16",
-                color: "#2f80ed",
-                colorKey: "blue",
-                cells: [
-                    { x: 0, y: 0, hole: true, paths: ["N", "S"] },
-                    { x: 1, y: 0, hole: true },
-                    { x: 2, y: 0, hole: true }
-                ]
-            },
-            {
-                id: "multipath-boss-17",
-                name: "종합 경로 조각 17",
-                color: "#f2c94c",
-                colorKey: "yellow",
-                cells: [
-                    { x: 0, y: 0, magnet: "N", paths: ["S", "W"] },
-                    { x: 1, y: 0, magnet: "S" },
-                    { x: 0, y: 1, paths: ["E", "N"] }
-                ]
-            },
-            {
-                id: "multipath-boss-18",
-                name: "종합 경로 조각 18",
-                color: "#2f80ed",
-                colorKey: "blue",
+                color: "#e15f41",
+                colorKey: "red",
                 cells: [
                     { x: 0, y: 0, hole: true, turn: "R", paths: ["N", "W"] },
                     { x: 1, y: 0 },
@@ -2675,25 +2653,15 @@ const stages = [
                 ]
             },
             {
-                id: "multipath-boss-19",
-                name: "종합 경로 조각 19",
-                color: "#f2c94c",
-                colorKey: "yellow",
+                id: "multipath-boss-16",
+                name: "종합 경로 조각 16",
+                color: "#e15f41",
+                colorKey: "red",
                 cells: [
-                    { x: 0, y: 0, magnet: "N", paths: ["E", "W"] },
-                    { x: 1, y: 0, hole: true, paths: ["N", "W"] },
-                    { x: 2, y: 0, magnet: "N", paths: ["N", "S"] }
-                ]
-            },
-            {
-                id: "multipath-boss-20",
-                name: "종합 경로 조각 20",
-                color: "#f2c94c",
-                colorKey: "yellow",
-                cells: [
-                    { x: 0, y: 0, magnet: "S", paths: ["N", "S"] },
-                    { x: 1, y: 0, magnet: "N" },
-                    { x: 2, y: 0, magnet: "S" }
+                    { x: 0, y: 0, paths: ["E", "N"] },
+                    { x: 1, y: 0, magnet: "N", paths: ["E", "W"] },
+                    { x: 2, y: 0, hole: true, paths: ["N", "W"] },
+                    { x: 3, y: 0, magnet: "N", paths: ["N", "S"] }
                 ]
             }
         ]
@@ -2717,7 +2685,7 @@ function startGame(stageIndex = currentStageIndex) {
     const stage = getStage();
     board.style.setProperty("--board-width", getBoardWidth(stage));
     board.style.setProperty("--board-height", getBoardHeight(stage));
-    boardScene.closest(".app").classList.toggle("large-puzzle", getBoardCellCount(stage) >= 64 && stage.pieces.length >= 20);
+    boardScene.closest(".app").classList.toggle("large-puzzle", getBoardCellCount(stage) >= 64 && hasMultiplePathRules(stage));
     pieces = stage.pieces.map(copyPiece);
     if (stage.fixedColors) {
         shuffleInPlace(pieces);
