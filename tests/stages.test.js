@@ -46,9 +46,12 @@ test("all 20 levels have one solution using the production solver", () => {
     assert.ok(solution);
 });
 
-test("4-X uses every piece and all paths without prescribing endpoint pairs", () => {
+test("4-X uses mixed 3-to-5-cell pieces and all paths without prescribing endpoint pairs", () => {
     assert.equal(boss.boardSize, 8);
-    assert.equal(boss.pieces.length, 20);
+    assert.equal(boss.pieces.length, 16);
+    assert.ok(boss.pieces.every((piece) => piece.cells.length >= 3 && piece.cells.length <= 5));
+    assert.ok(boss.pieces.some((piece) => piece.cells.length === 5));
+    assert.ok(boss.pieces.filter((piece) => piece.cells.length === 3).length < boss.pieces.length / 2);
     assert.equal(boss.pieces.flatMap((piece) => piece.cells).length, 64);
     assert.ok(boss.pieces.every((piece) => piece.cells.some((cell) => cell.paths?.length)));
     assert.equal(boss.endpoints.starts.length, 4);
